@@ -1,4 +1,6 @@
 import io from 'socket.io-client';
+const socket = io(process.env.VUE_APP_SERVER_URL); 
+import moment from 'moment'
 
 const state = () => ({
   pair: {
@@ -6,54 +8,68 @@ const state = () => ({
     base: "BTC", 
     quote: "USDT"
   },
+  currentPrice: 0,
   chartData: {
     labels: [],
-    datasets: [
-      {
-        backgroundColor: "#f87979",
-        data: []
-      }
-    ]
+    datasets: [{
+      fill: false,
+      borderWidth: 0,
+      borderColor: "#037ffc",
+      data: [],
+      pointRadius: [5]
+    }]
   }
 })
 
 const getters = {
-
+  chartData: state => state.chartData
 }
 
 const mutations = {
   SET_PAIR: (state, pairObject) => state.pair = pairObject,
   SET_CHART_DATA: (state, data) => {
-    state.chartData.datasets[0].data.push(+data.price)
-    state.chartData.labels.push(data.unix)
+    let priceDataArr = state.chartData.datasets[0].data
+    priceDataArr.push(+data.price)
+
+    let labelsArr = state.chartData.labels
+    labelsArr.push(moment(data.unix).format('LTS'))
+
+    // state.chartData.datasets[0].label = `${state.pair.id} ${+data.price}`
+    // state.chartData.datasets[0].pointRadius.unshift(0) 
+
+    state.currentPrice = +data.price
   }
 }
 
 const actions = {
-  GET_CHART_DATA: (context) => {
-    const connect = () => { 
-      const socket = io(process.env.VUE_APP_SERVER_URL, { 
-        autoConnect: false, 
-      }); 
-      socket.on('connect', () => { 
-        console.log('Connected');
-        socket.emit('SEND_MESSAGE', context.state.pair);
-        context.commit('SET_CHART_DATA', data)
-      }); 
-      
-      socket.on('unauthorized', (reason) => { 
-        console.log('Unauthorized:', reason);  
-      }); 
-      
-      socket.on('disconnect', (reason) => { 
-        console.log(`Disconnected:`); 
-      }); 
-      
-      socket.open(); 
-    };
+  CONNECT_SOCKET: (context) => {
+    socket.on('connection'); 
+    context.dispatch('SEND_SOCKET_MESSAGE')
 
-    connect()    
+    socket.on('MESSAGE', (data) => {
+      context.commit('SET_CHART_DATA', data)
+    });
+    
+    socket.on('unauthorized', () => { 
+      console.log('Unauthorized:');  
+      context.dispatch('DISCONNECT_SOCKET')
+    }); 
+    
+    socket.on('disconnect', () => { 
+      console.log(`Disconnected:`); 
+    }); 
+    
+    socket.open(); 
+  },
+
+  SEND_SOCKET_MESSAGE: (context) => {
+    socket.emit('SEND_MESSAGE', context.state.pair);
+  },
+  
+  DISCONNECT_SOCKET: () => {
+    socket.disconnect()
   }
+
 }
 
 export default {

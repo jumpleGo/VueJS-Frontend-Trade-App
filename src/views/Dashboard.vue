@@ -39,73 +39,35 @@
                 </div>
             </nav>
         </div>
-        <!-- End header header -->
-        <!-- Left Sidebar  -->
-        <div class="left-sidebar">
-            <!-- Sidebar scroll-->
-            <div class="scroll-sidebar">
-                <!-- Sidebar navigation-->
-                <nav class="sidebar-nav">
-                    <ul id="sidebar-menu">
-                        <li class="nav-devider"></li>
-                        <li class="nav-label">Home</li>
-                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="ti-wallet m-r-5"></i><span class="hide-menu">Widgets</span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a href="widget.html">Widgets</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-label">EXTRA</li>
-                    </ul>
-                </nav>
-                <!-- End Sidebar navigation -->
-            </div>
-            <!-- End Sidebar scroll-->
-        </div>
-        <!-- End Left Sidebar  -->
-        <!-- Page wrapper  -->
+        <base-left-sidebar />
         <div class="page-wrapper">
           <div class="container-fluid">
-              <!-- Start Page Content -->
               <div class="row">
                   <div class="col-12">
                       <div class="card chart">
                         <base-traiding />
                       </div>
                   </div>
+                  <Table />
               </div>
-              <!-- End PAge Content -->
-              <div class="left-sidebar --right">
-            <!-- Sidebar scroll-->
-            <div class="scroll-sidebar">
-                <!-- Sidebar navigation-->
-                <nav class="sidebar-nav">
-                    <ul id="sidebar-menu">
-                        <div class="form-actions pb-0 m-l-15 m-r-15">
-                        <button type="submit" class="btn round btn-success btn-block btn-glow"> Buy BTC </button>
-                    </div>
-                    </ul>
-                </nav>
-                <!-- End Sidebar navigation -->
-            </div>
-            <!-- End Sidebar scroll-->
-        </div>
+            <base-right-sidebar />
           </div>
-          <!-- End Container fluid  -->
-          <!-- footer -->
-          <footer class="footer"> © 2018 CoinDash All Right Reserved.</footer>
-          <!-- End footer -->
         </div>
-        
-        <!-- End Page wrapper  -->
     </div>
 </template>
 <script>
+import Table from '@/components/Table/Table'
+import BaseRightSidebar from '@/components/sidebars/BaseRightSidebar'
+import BaseLeftSidebar from '@/components/sidebars/BaseLeftSidebar'
 import BaseTraiding from '@/components/BaseTraiding'
 import { mapState } from 'vuex'
 export default {
   name: 'Dashboard',
   components: {
-    BaseTraiding
+    BaseTraiding,
+    BaseRightSidebar,
+    BaseLeftSidebar,
+    Table
   },
   data: () => ({
     profileModal: false
@@ -131,7 +93,7 @@ export default {
 </style>
 <style lang="sass" scoped>
 .chart
-  max-width: 800px
+  max-width: 1200px
 .page-wrapper
   margin-right: 240px
 .--right

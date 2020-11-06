@@ -32,20 +32,20 @@ const actions = {
 
       if (!result.data.error) {
         const token = result.data.token
-        localStorage.setItem('traindingBTCToken', token)
+        localStorage.setItem('tradingBTCToken', token)
         context.commit('SET_CURRENT_USER', result.data.user)
         router.push('/dashboard')
       } else {
         context.commit('SET_LOGIN_ERROR', {code: 'wrong_pass'}) 
       }
     } catch (err) {
-      localStorage.removeItem('traindingBTCToken')
+      localStorage.removeItem('tradingBTCToken')
       context.commit('SET_LOGIN_ERROR', {code: 'notFoundUser'}) 
     }
   },
 
   LOGOUT: ({commit}) =>  {
-    localStorage.removeItem('traindingBTCToken')
+    localStorage.removeItem('tradingBTCToken')
     commit('DELETE_CURRENT_USER')
     router.push('/login')
   },

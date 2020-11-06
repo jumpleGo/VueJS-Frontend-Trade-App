@@ -6,11 +6,11 @@ import ResetPassword from '@/views/ResetPassword'
 
 // Middleware
 const ifNotAuthenticated = (to, from, next) => {
-  if (!localStorage.getItem('traindingBTCToken')) return next()
+  if (!localStorage.getItem('tradingBTCToken')) return next()
   next('/dashboard')
 }
 const ifAuthenticated = (to, from, next) => {
-  if (localStorage.getItem('traindingBTCToken')) return next()
+  if (localStorage.getItem('tradingBTCToken')) return next()
   next('/login')
 }
 
