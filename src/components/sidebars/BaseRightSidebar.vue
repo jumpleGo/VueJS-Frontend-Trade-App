@@ -5,7 +5,7 @@
         <ul id="sidebar-menu">
           <div class="form-actions pb-0 m-l-15 m-r-15">
             <div class="pair">{{ pair.id }}</div>
-            <div class="price">${{ price }}</div>
+            <div class="price" :style="{color: trendColor}">${{ price }}</div>
             <button class="btn btn-success btn-rounded btn-block btn-glow">Выше</button>
             <button class="btn btn-danger btn-rounded btn-block btn-glow">Ниже</button>
           </div>
@@ -23,7 +23,13 @@ export default {
       return this.$store.state.trade.pair
     },
     price () {
-      return this.$store.state.trade.currentPrice.toFixed(3)
+      return this.$store.state.trade.currentPrice.toFixed(2)
+    },
+    trend () {
+      return this.$store.state.trade.currentTrend
+    },
+    trendColor () {
+      return this.trend === 'sell' ? '#F13057' : '#0ABF9E'
     }
   },
 }
@@ -31,8 +37,8 @@ export default {
 
 <style lang="sass" scoped>
 .price
-  font-size: 23px
-  font-weight: 600
+  font-size: 21px
+  font-weight: 500
 .pair
   font-size: 23px
 </style>

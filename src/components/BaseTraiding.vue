@@ -23,8 +23,14 @@ export default {
   },
 
   mounted () {
-    this.$store.dispatch('trade/CONNECT_SOCKET')
-  } 
+    this.init()
+  },
+  methods: {
+    async init () {
+      await this.$store.dispatch('trade/GET_CHART_DATA')
+      await this.$store.dispatch('trade/CONNECT_SOCKET')
+    }
+  }
 }
 </script>
 

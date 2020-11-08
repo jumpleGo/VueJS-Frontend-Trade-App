@@ -15,12 +15,11 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td class="pair">BTCUSDT</td>
-                        <td><span class="percent">1.8</span></td>
-                      </tr>
-                      <tr>
-                        <td class="pair">LTCUSDT</td>
+                      <tr 
+                        v-for="pair in allPairs"
+                        :key="pair._id"
+                        :class="{'active' : currentPair.id === pair.id}">
+                        <td class="pair">{{ pair.id }}</td>
                         <td><span class="percent">1.8</span></td>
                       </tr>
                     </tbody>
@@ -37,16 +36,34 @@
 
 <script>
 export default {
-  name: 'BaseLeftSidebar'
+  name: 'BaseLeftSidebar',
+  computed: {
+    allPairs () {
+      return this.$store.state.trade.allPairs
+    },
+    currentPair () {
+      return this.$store.state.trade.pair
+    }
+  },
+  mounted () {
+    this.$store.dispatch('trade/GET_PAIRS')
+  }
 }
 </script>
 
 <style lang="sass" scoped>
+.active 
+  cursor: pointer
+  background: rgba(0,0,0, 0.03)
 tbody > tr:hover
   cursor: pointer
   background: rgba(0,0,0, 0.03)
+
+tbody tr td 
+  padding: 5px 10px
 .pair
-  font-weight: 600
+  font-weight: 400
+  font-size: 14px
   color: black
 .percent
   padding: 2px 5px
