@@ -18,13 +18,15 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Kolor Tea Shirt For Man</td>
-                <td><span class="badge badge-primary">Sale</span></td>
-                <td>January 22</td>
-                <td class="color-primary">$21.56</td>
-                <td class="color-primary">Ниже</td>
+              <tr 
+                v-for="(deal, index) in deals"
+                :key="`${deal.pair}-${index}`">
+                <th scope="row">{{ index + 1 }}</th>
+                <td>{{ deal.pair }}</td>
+                <td><span class="badge badge-success">{{ deal.status }}</span></td>
+                <td>{{ formateDate(deal.startDate) }}</td>
+                <td class="color-primary">$ {{ deal.amount }}</td>
+                <td class="color-primary">{{ checkTrend(deal.trend) }}</td>
               </tr>
             </tbody>
           </table>
@@ -33,3 +35,22 @@
     </div>
   </div>
 </template>
+<script>
+import moment from 'moment'
+export default {
+  name: 'Table',
+  computed: {
+    deals () {
+      return this.$store.state.deals.deals
+    },
+  },
+  methods: {
+    checkTrend (trend) {
+      return trend === 'low' ? 'Ниже' : 'Выше'
+    },
+    formateDate (date) {
+      return moment(date).format('LTS')
+    }
+  }
+}
+</script>

@@ -32,6 +32,7 @@
                   <div>
                     <input 
                       type="number" 
+                      v-model="amount"
                       id="btc-limit-buy-price" 
                       class="form-control" 
                       placeholder="Сумма $" 
@@ -40,8 +41,16 @@
                 </div>
               </div>
             </form>
-            <button class="btn btn-success btn-rounded btn-block btn-glow">Выше</button>
-            <button class="btn btn-danger btn-rounded btn-block btn-glow">Ниже</button>
+            <button 
+              class="btn btn-success btn-rounded btn-block btn-glow"
+              @click="createDeal('high')">
+              Выше
+              </button>
+            <button 
+              class="btn btn-danger btn-rounded btn-block btn-glow"
+              @click="createDeal('low')">
+              Ниже
+            </button>
           </div>
         </ul>
       </nav>
@@ -55,11 +64,15 @@ export default {
   data: () => ({
     lastPriceInfo: null,
     showPeriodDropdown: false,
-    periods: [30, 60, 120]
+    periods: [30, 60, 120],
+    amount: 0
   }),
   computed: {
     pair () {
       return this.$store.state.trade.pair
+    },
+    currentUser () {
+      return this.$store.state.auth.currentUser
     },
     chartData () {
       return this.$store.getters['trade/chartData']
@@ -90,7 +103,21 @@ export default {
     setPeriod(p) {
       this.$store.commit('trade/SET_PERIOD', p)
       this.showPeriodDropdown = !this.showPeriodDropdown
-    }
+    },
+
+    createDeal (trend) {
+      let date = new Date()
+      this.$store.dispatch('deals/CREATE_DEAL', {
+        trend,
+        user: this.currentUser.id,
+        pair: this.pair.id,
+        period: this.period,
+        amount: this.amount,
+        startDate: date,
+        status: 'NEW',
+        endDate: new Date(date.setSeconds( date.getSeconds() + this.period ))
+      })
+    },
   }
 }
 </script>
