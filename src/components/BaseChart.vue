@@ -20,6 +20,9 @@ export default {
     dataOfChart () {
       return this.chartData.datasets[0].data
     },
+    pair () {
+      return this.$store.state.trade.pair
+    },
     
     
     chartOptions () {
@@ -54,12 +57,12 @@ export default {
             zoom: {
               pan: {
                 enabled: true,
-                mode: 'xy'
+                mode: 'x'
               },
 
               zoom: {
                 enabled: true,
-                mode: 'xy',
+                mode: 'x',
               }
             }
           }
@@ -68,16 +71,29 @@ export default {
     }
   },
 
+   watch: {
+    dataOfChart () {
+      this.$nextTick(() => {
+        this.myChart.update()
+      })
+    },
+    pair: {
+      deep: true,
+      handler: async function() {
+        this.myChart.destroy()
+        this.createChart('line-chart', this.chartOptions)
+      }
+    }
+  },
+
+  beforeDestroy () {
+    this.myChart.destroy()
+  },
+
   mounted () {
     this.$nextTick(() => {
       this.createChart('line-chart', this.chartOptions)
     })
-  },
-
-  watch: {
-    dataOfChart () {
-      this.myChart.update()
-    }
   },
 
   methods: {

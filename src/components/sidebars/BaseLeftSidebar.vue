@@ -18,7 +18,8 @@
                       <tr 
                         v-for="pair in allPairs"
                         :key="pair._id"
-                        :class="{'active' : currentPair.id === pair.id}">
+                        :class="{'active' : currentPair.id === pair.id}"
+                        @click="$store.commit('trade/SET_PAIR', pair)">
                         <td class="pair">{{ pair.id }}</td>
                         <td><span class="percent">1.8</span></td>
                       </tr>

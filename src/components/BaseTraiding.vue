@@ -1,6 +1,7 @@
 <template>
   <div class="chart">
-    <base-chart :chart-data="chartData" />
+    <base-chart 
+      :chart-data="chartData" />
   </div>
 </template>
 <script>
@@ -13,6 +14,20 @@ export default {
   computed: {
     chartData () {
       return this.$store.getters['trade/chartData']
+    },
+    pair () {
+      return this.$store.state.trade.pair
+    }
+  },
+
+  watch: {
+    pair: {
+      deep: true,
+      handler: async function() {
+        this.$store.commit('trade/CLEAR_OLD_DATE')
+        await this.$store.dispatch('trade/SEND_SOCKET_MESSAGE')
+        await this.$store.dispatch('trade/GET_CHART_DATA')
+      }
     }
   },
   components: {
@@ -23,6 +38,7 @@ export default {
   },
 
   mounted () {
+    this.$store.commit('trade/CLEAR_OLD_DATE')
     this.init()
   },
   methods: {

@@ -1,5 +1,6 @@
 import router from '@/router'
 import axios from 'axios'
+import { MUser } from '@/api/models/MUser'
 
 const state = () => ({
   currentUser: null,
@@ -13,7 +14,7 @@ const getters = {
 }
 
 const mutations = {
-  SET_CURRENT_USER: (state, user) => state.currentUser = user,
+  SET_CURRENT_USER: (state, user) => state.currentUser = new MUser(JSON.parse(user)),
   SET_REGISTER_ERROR: (state, error) => state.registrationError = error,
   DELETE_CURRENT_USER: state => state.currentUser = null,
   SET_LOGIN_ERROR: (state, error) => state.loginError = error,
@@ -31,9 +32,12 @@ const actions = {
       })
 
       if (!result.data.error) {
-        const token = result.data.token
+        const {token, user} = result.data
+
         localStorage.setItem('tradingBTCToken', token)
-        context.commit('SET_CURRENT_USER', result.data.user)
+        localStorage.setItem('currentUser', JSON.stringify(user))
+
+        context.commit('SET_CURRENT_USER', user)
         router.push('/dashboard')
       } else {
         context.commit('SET_LOGIN_ERROR', {code: 'wrong_pass'}) 
@@ -92,6 +96,28 @@ const actions = {
       }
     } catch(error){
       console.log("error", error)
+    }
+  },
+
+  CHECK_AUTH: (context) => {
+    const currentUser = localStorage.getItem('currentUser')
+
+    if (currentUser) {
+      context.commit('SET_CURRENT_USER', currentUser)
+    }else {
+      const token = localStorage.getItem('tradingBTCToken')
+      if (token) {
+        localStorage.removeItem('tradingBTCToken')
+        context.dispatch('notification/SET_NOTIFICATION_SETTINGS',
+          {
+            show: true,
+            time: 2000,
+            text: 'Системная ошибка, Войдите еще раз'
+          }, 
+          { root: true }
+        )
+        router.push('/login')
+      }
     }
   }
 }

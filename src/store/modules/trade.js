@@ -9,6 +9,7 @@ const state = () => ({
     base: "BTC", 
     quote: "USDT"
   },
+  period: 30,
   allPairs: [],
   currentPrice: 0,
   currentTrend: null,
@@ -29,14 +30,23 @@ const getters = {
 }
 
 const mutations = {
+  SET_PERIOD: (state, period) => state.period = period,
   SET_PAIR: (state, pairObject) => state.pair = pairObject,
   SET_ALL_PAIRS: (state, pairs) => state.allPairs = pairs,
   SET_CHART_DATA: (state, data) => {
+    
     let priceDataArr = state.chartData.datasets[0].data
     priceDataArr.push(+data.price)
 
     let labelsArr = state.chartData.labels
     labelsArr.push(moment(data.unix).format('LTS'))
+  },
+  CLEAR_OLD_DATE: (state) => {
+    state.chartData.labels = [],
+    state.chartData.datasets[0].data = [],
+    state.chartData.datasets[0].pointRadius = []
+    state.currentPrice = 0
+
   },
   SET_PRICE_INFO: (state, data) => {
     // state.chartData.datasets[0].label = `${state.pair.id} ${+data.price}`
