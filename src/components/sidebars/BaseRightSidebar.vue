@@ -36,17 +36,21 @@
                       id="btc-limit-buy-price" 
                       class="form-control" 
                       placeholder="Сумма $" 
-                      name="btc-limit-buy-price">
+                      name="btc-limit-buy-price"
+                      @input="errBalance = false">
+                      <span class="error" v-if="errBalance">Недостаточно средств</span>
                   </div>
                 </div>
               </div>
             </form>
             <button 
+              :disabled="!amount"
               class="btn btn-success btn-rounded btn-block btn-glow"
               @click="createDeal('high')">
               Выше
               </button>
             <button 
+              :disabled="!amount"
               class="btn btn-danger btn-rounded btn-block btn-glow"
               @click="createDeal('low')">
               Ниже
@@ -65,14 +69,15 @@ export default {
     lastPriceInfo: null,
     showPeriodDropdown: false,
     periods: [30, 60, 120],
-    amount: 0
+    amount: 0,
+    errBalance: false
   }),
   computed: {
     pair () {
       return this.$store.state.trade.pair
     },
     currentUser () {
-      return this.$store.state.auth.currentUser
+      return this.$store.state.user.currentUser
     },
     chartData () {
       return this.$store.getters['trade/chartData']
@@ -105,24 +110,37 @@ export default {
       this.showPeriodDropdown = !this.showPeriodDropdown
     },
 
-    createDeal (trend) {
-      let date = new Date()
-      this.$store.dispatch('deals/CREATE_DEAL', {
-        trend,
-        user: this.currentUser.id,
-        pair: this.pair.id,
-        period: this.period,
-        amount: this.amount,
-        startDate: date,
-        status: 'NEW',
-        endDate: new Date(date.setSeconds( date.getSeconds() + this.period ))
-      })
+    async createDeal (trend) {
+      if (this.currentUser.balance < this.amount) {
+        this.errBalance = true
+      } else {
+        let date = new Date()
+        await this.$store.dispatch('deals/CREATE_DEAL', {
+          trend,
+          user: this.currentUser.id,
+          currentPrice: this.showPrice,
+          pair: this.pair.id,
+          period: this.period,
+          amount: this.amount,
+          startDate: new Date(),
+          status: 'NEW',
+          endDate: new Date(date.setSeconds( date.getSeconds() + this.period ))
+        })
+        
+        await this.$store.dispatch('user/UPDATE_USER_BALANCE', {
+          amount: this.amount,
+          type: 'minus'
+        })
+      }
     },
   }
 }
 </script>
 
 <style lang="sass" scoped>
+.error
+  font-size: 14px
+  color: red
 #sidebar-menu
   margin-top: 7px
 .period-dropdown

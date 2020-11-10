@@ -1,9 +1,7 @@
 import router from '@/router'
 import axios from 'axios'
-import { MUser } from '@/api/models/MUser'
 
 const state = () => ({
-  currentUser: null,
   loginError: null,
   registrationError: null,
   resetError: null
@@ -14,9 +12,7 @@ const getters = {
 }
 
 const mutations = {
-  SET_CURRENT_USER: (state, user) => state.currentUser = new MUser(JSON.parse(user)),
   SET_REGISTER_ERROR: (state, error) => state.registrationError = error,
-  DELETE_CURRENT_USER: state => state.currentUser = null,
   SET_LOGIN_ERROR: (state, error) => state.loginError = error,
   SET_RESET_ERROR: (state, error) => state.resetError = error
 }
@@ -37,7 +33,7 @@ const actions = {
         localStorage.setItem('tradingBTCToken', token)
         localStorage.setItem('currentUser', JSON.stringify(user))
 
-        context.commit('SET_CURRENT_USER', user)
+        context.commit('user/SET_CURRENT_USER', user, {root: true})
         router.push('/dashboard')
       } else {
         context.commit('SET_LOGIN_ERROR', {code: 'wrong_pass'}) 
@@ -50,6 +46,7 @@ const actions = {
 
   LOGOUT: ({commit}) =>  {
     localStorage.removeItem('tradingBTCToken')
+    localStorage.removeItem('currentUser')
     commit('DELETE_CURRENT_USER')
     router.push('/login')
   },
@@ -99,11 +96,23 @@ const actions = {
     }
   },
 
-  CHECK_AUTH: (context) => {
+  CHECK_AUTH: async  (context) => {
     const currentUser = localStorage.getItem('currentUser')
-
+    
     if (currentUser) {
-      context.commit('SET_CURRENT_USER', currentUser)
+      const user = await axios({
+        method: 'post',
+        url: `${process.env.VUE_APP_SERVER_URL_API}/checkAuth`,
+        headers: {'Content-Type': 'application/json'},
+        data: {email: JSON.parse(currentUser).email}
+      })
+      console.log("user", user)
+      if (user.data.user) {
+        context.commit('user/SET_CURRENT_USER', user.data.user, {root: true})
+      } else {
+        context.dispatch('LOGOUT')
+      }
+      
     }else {
       const token = localStorage.getItem('tradingBTCToken')
       if (token) {

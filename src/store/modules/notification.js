@@ -20,7 +20,6 @@ const mutations = {
 
 const actions = {
   SET_NOTIFICATION_SETTINGS: (context, settings) => {
-    console.log("settings", settings)
     context.commit('SET_NOTIFICATION_SETTINGS', settings)
     setTimeout(() => {
       context.commit('SET_NOTIFICATION_SETTINGS', {show: false, time: 0, text: null})

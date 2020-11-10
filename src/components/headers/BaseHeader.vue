@@ -51,7 +51,7 @@ export default {
     profileModal: false
   }),
   computed: {
-    ...mapState('auth', {
+    ...mapState('user', {
       currentUser: state => state.currentUser,
     }),
     isVerified () {
