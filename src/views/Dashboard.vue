@@ -34,10 +34,6 @@ export default {
     BaseHeader,
     Table
   },
-  
-  mounted () {
-    this.$store.dispatch('auth/CHECK_AUTH')
-  },
 }
 </script>
 

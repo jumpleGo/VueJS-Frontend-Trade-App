@@ -4,13 +4,18 @@ import Registration from '@/views/Registration'
 import Dashboard from '@/views/Dashboard'
 import ResetPassword from '@/views/ResetPassword'
 
+import store from "@/store/"
+
 // Middleware
 const ifNotAuthenticated = (to, from, next) => {
   if (!localStorage.getItem('tradingBTCToken')) return next()
   next('/dashboard')
 }
-const ifAuthenticated = (to, from, next) => {
-  if (localStorage.getItem('tradingBTCToken')) return next()
+const ifAuthenticated = async (to, from, next) => {
+  if (localStorage.getItem('tradingBTCToken')) {
+    await store.dispatch('auth/CHECK_AUTH')
+    next()
+  } 
   next('/login')
 }
 

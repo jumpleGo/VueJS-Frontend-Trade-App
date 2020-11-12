@@ -18,6 +18,6 @@ export default {
     notificationData () {
       return this.$store.state.notification.settings
     }
-  }
+  },
 }
 </script>

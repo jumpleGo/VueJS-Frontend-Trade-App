@@ -2,6 +2,7 @@ import io from 'socket.io-client';
 const socket = io(process.env.VUE_APP_SERVER_URL); 
 import moment from 'moment'
 import axios from 'axios'
+import {MCandle} from './../../api/models/MCandle'
 
 const state = () => ({
   pair: {
@@ -16,23 +17,29 @@ const state = () => ({
   chartData: {
     labels: [],
     datasets: [{
-      fill: false,
+      fill: true,
       borderWidth: 0,
+      backgroundColor: 'rgba(3,127,252,0.02)',
       borderColor: "#037ffc",
       data: [],
       pointRadius: [0]
     }]
-  }
+  },
+  candleData: [{
+    data: [],
+  }]
 })
 
 const getters = {
-  chartData: state => state.chartData
+  chartData: state => state.chartData,
+  candleData: state => state.candleData
 }
 
 const mutations = {
   SET_PERIOD: (state, period) => state.period = period,
   SET_PAIR: (state, pairObject) => state.pair = pairObject,
   SET_ALL_PAIRS: (state, pairs) => state.allPairs = pairs,
+  PUSH_CANDLE_DATA: (state, candle) => state.candleData[0].data.push(candle),
   SET_CHART_DATA: (state, data) => {
     
     let priceDataArr = state.chartData.datasets[0].data
@@ -72,6 +79,38 @@ const actions = {
       }
     } catch (err) {
       console.log("err", err)
+    }
+  },
+  GET_CANDLE_DATA: async (context) => {
+    const candleData = await axios({
+      method: 'post',
+      url: `${process.env.VUE_APP_SERVER_URL_API}/getCandleData`,
+      headers: {'Content-Type': 'application/json'},
+      data: {base: context.state.pair.id}
+    })
+
+
+    let candle = candleData.data[0]
+    for (let i = 0; i < candleData.data.length - 1; i++) {
+      if (candleData.data[i].timestampMs === candle.timestampMs) {
+        candle = await context.dispatch('UPDATE_CURRENT_CANDLE', {
+          candle, 
+          newValue: candleData.data[i]
+        })
+      } else {
+        context.commit('PUSH_CANDLE_DATA', new MCandle(candle))
+        candle = candleData.data[i]
+      }
+    }
+    
+  },
+  UPDATE_CURRENT_CANDLE: (_, {candle, newValue}) => {
+    return {
+      timestampMs: candle.timestampMs,
+      open: +candle.open,
+      high: +candle.high > +newValue.high ? +candle.high : +newValue.high,
+      low: +candle.low < +newValue.low ? +candle.low : +newValue.low,
+      close: +newValue.close
     }
   },
   CONNECT_SOCKET: (context) => {

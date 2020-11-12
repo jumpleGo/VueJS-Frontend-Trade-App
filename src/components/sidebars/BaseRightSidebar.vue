@@ -14,7 +14,7 @@
               <div class="form-body">
                 <div class="form-group period-group">
                   <span>Выберите период</span>
-                  <button @click="showPeriodDropdown = !showPeriodDropdown">
+                  <button @click="showPeriodDropdown = !showPeriodDropdown">  
                     {{ period }}
                   </button>
                   <div 
@@ -29,7 +29,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <div>
+                  <div class="input-group-my">
                     <input 
                       type="number" 
                       v-model="amount"
@@ -38,6 +38,8 @@
                       placeholder="Сумма $" 
                       name="btc-limit-buy-price"
                       @input="errBalance = false">
+                      <span class="feature-amount-title">Возможный выигрыш:</span>
+                      <span class="feature-amount">$ {{ futureAmount }}</span>
                       <span class="error" v-if="errBalance">Недостаточно средств</span>
                   </div>
                 </div>
@@ -73,6 +75,9 @@ export default {
     errBalance: false
   }),
   computed: {
+    futureAmount () {
+      return (this.amount * 1.8).toFixed(2)
+    },
     pair () {
       return this.$store.state.trade.pair
     },
@@ -111,6 +116,7 @@ export default {
     },
 
     async createDeal (trend) {
+      
       if (this.currentUser.balance < this.amount) {
         this.errBalance = true
       } else {
@@ -131,6 +137,7 @@ export default {
           amount: this.amount,
           type: 'minus'
         })
+        this.amount = 0
       }
     },
   }
@@ -138,6 +145,15 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.input-group-my
+  display: flex
+  flex-direction: column
+.feature-amount-title
+  font-size: 15px
+  font-weight: 500
+.feature-amount
+  color: green
+  font-size: 20px
 .error
   font-size: 14px
   color: red
@@ -150,6 +166,8 @@ export default {
   box-shadow: 3px 2px 8px -1px rgba(0, 0, 0, 0.26)
   background: white
   margin-top: 80px
+  background: white
+  z-index: 40
   p
     padding: 10px 15px
     margin: 0

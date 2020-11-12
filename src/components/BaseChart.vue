@@ -45,11 +45,12 @@ export default {
           scales: {
             xAxes: [{
               gridLines : {
-                display : false
+                display : true,
+                tickMarkLength: 15 
               },
               ticks: {
-                maxTicksLimit: 20,
-                autoskip: true,
+                maxTicksLimit: 15,
+                beginAtZero: false,
               }
             }],
           },
@@ -57,12 +58,11 @@ export default {
             zoom: {
               pan: {
                 enabled: true,
-                mode: 'x'
+                mode: 'xy'
               },
-
               zoom: {
                 enabled: true,
-                mode: 'x',
+                mode: 'xy'
               }
             }
           }

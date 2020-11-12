@@ -7,8 +7,10 @@ import store from './store'
 import Vuelidate from 'vuelidate'
 
 
+
 Vue.use(Vuelidate)
 Vue.use(VueAxios, axios)
+
 
 Vue.axios.defaults.baseURL = process.env.VUE_APP_SERVER_URL_API
 

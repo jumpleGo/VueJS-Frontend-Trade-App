@@ -15,19 +15,15 @@
                 <th>Дата</th>
                 <th>Сумма</th>
                 <th>Ставка</th>
+                <th>Конец сделки:</th>
               </tr>
             </thead>
             <tbody>
-              <tr 
+              <Deal 
                 v-for="(deal, index) in deals"
-                :key="`${deal.pair}-${index}`">
-                <th scope="row">{{ index + 1 }}</th>
-                <td>{{ deal.pair }}</td>
-                <td><span class="badge badge-success">{{ deal.status }}</span></td>
-                <td>{{ formateDate(deal.startDate) }}</td>
-                <td class="color-primary">$ {{ deal.amount }}</td>
-                <td class="color-primary">{{ checkTrend(deal.trend) }}</td>
-              </tr>
+                :key="`${deal.pair}-${index}`"
+                :index="index"
+                :deal="deal" />
             </tbody>
           </table>
         </div>
@@ -36,21 +32,22 @@
   </div>
 </template>
 <script>
-import moment from 'moment'
+import Deal from './Deal'
 export default {
   name: 'Table',
+  components: {
+    Deal
+  },
   computed: {
     deals () {
-      return this.$store.state.deals.deals
+      return this.$store.getters['deals/deals']
     },
-  },
-  methods: {
-    checkTrend (trend) {
-      return trend === 'low' ? 'Ниже' : 'Выше'
-    },
-    formateDate (date) {
-      return moment(date).format('LTS')
+    currentUser () {
+      return this.$store.state.user.currentUser
     }
-  }
+  },
+  mounted () {
+    this.$store.dispatch('deals/GET_DEALS_BY_USERID', this.currentUser.id)
+  },
 }
 </script>

@@ -1,10 +1,11 @@
 <template>
   <div class="chart">
-    <base-chart 
-      :chart-data="chartData" />
+    <base-chart :chart-data="chartData" />
+    <candle-chart :candle-data="candleData" />
   </div>
 </template>
 <script>
+import CandleChart from './CandleChart'
 import BaseChart from './BaseChart'
 export default {
   name: 'BaseTraiding',
@@ -14,6 +15,9 @@ export default {
   computed: {
     chartData () {
       return this.$store.getters['trade/chartData']
+    },
+    candleData () {
+      return this.$store.getters['trade/candleData']
     },
     pair () {
       return this.$store.state.trade.pair
@@ -31,7 +35,8 @@ export default {
     }
   },
   components: {
-    BaseChart
+    BaseChart,
+    CandleChart
   },
   beforeDestroy() {
     this.$store.dispatch('trade/DISCONNECT_SOCKET')
@@ -44,6 +49,7 @@ export default {
   methods: {
     async init () {
       await this.$store.dispatch('trade/GET_CHART_DATA')
+      await this.$store.dispatch('trade/GET_CANDLE_DATA')
       await this.$store.dispatch('trade/CONNECT_SOCKET')
     }
   }
