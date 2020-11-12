@@ -26,6 +26,7 @@
     "vue-apexcharts": "^1.6.0",
     "vue-axios": "^3.1.2",
     "vue-chartjs": "^3.5.1",
+    "vue-chartjs-financial": "^1.0.1",
     "vue-cli": "^2.9.6",
     "vue-router": "^3.2.0",
     "vuelidate": "^0.7.6",

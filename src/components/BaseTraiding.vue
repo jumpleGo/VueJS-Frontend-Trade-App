@@ -1,11 +1,18 @@
 <template>
   <div class="chart">
-    <base-chart :chart-data="chartData" />
-    <candle-chart :candle-data="candleData" />
+    <base-chart 
+      v-if="chartType === 'line'"
+      class="line-chart"
+      :chart-data="chartData" />
+    <candlestick 
+      v-if="chartType === 'candle'" 
+      :height="200"
+      class="candle-chart"
+      :chart-data="candleData" />
   </div>
 </template>
 <script>
-import CandleChart from './CandleChart'
+import Candlestick from './Candlestick'
 import BaseChart from './BaseChart'
 export default {
   name: 'BaseTraiding',
@@ -13,6 +20,9 @@ export default {
   data: () =>  ({
   }),
   computed: {
+    chartType () {
+      return this.$store.state.trade.chartType
+    },
     chartData () {
       return this.$store.getters['trade/chartData']
     },
@@ -29,14 +39,15 @@ export default {
       deep: true,
       handler: async function() {
         this.$store.commit('trade/CLEAR_OLD_DATE')
-        await this.$store.dispatch('trade/SEND_SOCKET_MESSAGE')
+        await this.$store.dispatch('trade/SEND_SOCKET_MESSAGE_TRADE')
         await this.$store.dispatch('trade/GET_CHART_DATA')
+        await this.$store.dispatch('trade/GET_CANDLE_DATA')
       }
     }
   },
   components: {
     BaseChart,
-    CandleChart
+    Candlestick
   },
   beforeDestroy() {
     this.$store.dispatch('trade/DISCONNECT_SOCKET')

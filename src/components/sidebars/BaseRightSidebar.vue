@@ -91,13 +91,13 @@ export default {
       return this.chartData?.datasets[0].data
     },
     lastPrice() {
-      return this.rates[this.rates.length - 1]
+      return this.rates[this.rates.length - 1] // {x: time, y: price}
     },
     price () {
       return this.$store.state.trade.currentPrice.toFixed(2)
     },
     showPrice () {
-      return +this.price ? this.price : this.lastPrice
+      return +this.price ? this.price : this.lastPrice?.y
     },
     trend () {
       return this.$store.state.trade.currentTrend
@@ -109,6 +109,7 @@ export default {
       return this.$store.state.trade.period
     }
   },
+
   methods: {
     setPeriod(p) {
       this.$store.commit('trade/SET_PERIOD', p)

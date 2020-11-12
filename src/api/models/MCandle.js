@@ -1,11 +1,14 @@
-import moment from 'moment'
+// import moment from 'moment'
 
 export class MCandle  {
   constructor (data) {
     if (data) {
       return {
-        x: moment(data.timestampMs).format('LTS'), 
-        y: [+data.open, +data.high, +data.low, +data.close],
+        t: new Date(data.timestampMs),
+        o: +data.open,
+        h: +data.high,
+        l: +data.low,
+        c: +data.close
       }
     }
   }

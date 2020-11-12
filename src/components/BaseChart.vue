@@ -11,7 +11,6 @@ export default {
       required: true
     }
   },
-
   data: () => ({
     myChart: null
   }),
@@ -23,8 +22,6 @@ export default {
     pair () {
       return this.$store.state.trade.pair
     },
-    
-    
     chartOptions () {
       return {
         type: 'line',
@@ -36,7 +33,7 @@ export default {
             }
           },
           tooltips: {
-            enabled: false
+            enabled: true
           },
           steppedLine: true,
           legend: {
@@ -44,13 +41,16 @@ export default {
           },
           scales: {
             xAxes: [{
-              gridLines : {
-                display : true,
-                tickMarkLength: 15 
+              type: 'time',
+              time: {
+                unit: 'minute'
               },
+              distribution: 'linear',
               ticks: {
-                maxTicksLimit: 15,
-                beginAtZero: false,
+                maxTicksLimit: 5,
+                autoSkip: true,
+                autoSkipPadding: 50,
+                maxRotation: 0
               }
             }],
           },
@@ -58,11 +58,11 @@ export default {
             zoom: {
               pan: {
                 enabled: true,
-                mode: 'xy'
+                mode: 'x'
               },
               zoom: {
                 enabled: true,
-                mode: 'xy'
+                mode: 'x'
               }
             }
           }
@@ -71,7 +71,7 @@ export default {
     }
   },
 
-   watch: {
+  watch: {
     dataOfChart () {
       this.$nextTick(() => {
         this.myChart.update()
