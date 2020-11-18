@@ -1,19 +1,18 @@
 <script>
 import { Candlestick } from 'vue-chartjs-financial';
 import zoom from 'chartjs-plugin-zoom';
+import * as ChartAnnotation from 'chartjs-plugin-annotation';
+import 'chartjs-adapter-moment';
+
 export default {
   name: 'Candlestick',
   extends: Candlestick,
-  props: {
-    chartData: {
-      type: Object,
-      required: true
-    }
-
-  },
   computed: {
+    candleData () {
+      return this.$store.getters['trade/candleData']
+    },
     lastCandle () {
-      return this.chartData.datasets[0].data[this.chartData.datasets[0].data.length - 1]
+      return this.$store.getters['trade/lastCandle']
     },
     pair () {
       return this.$store.state.trade.pair
@@ -21,28 +20,32 @@ export default {
     options () {
       return {
         type: 'candlestick',
-        data: this.chartData,
         responsive: true,
         legend: {
           display: false,
         },
+        tooltips: {
+          enabled: false
+        },
         scales: {
           xAxes: [{
-            gridLines: {
-              drawOnChartArea: true
-            }
+            id: 'x',
+            type: 'time',
+            time: {
+              minUnit: 'minute',
+              displayFormats: {'minute': 'HH:mm'},
+            },
+            ticks: {
+              maxRotation: 0,
+              maxTicksLimit: 5
+            },
           }],
-          yAxes: [{
-            gridLines: {
-              display: true
-            }
-          }]
         },
         plugins: {
           zoom: {
             pan: {
               enabled: true,
-              mode: 'xy'
+              mode: 'xy',
             },
             zoom: {
               enabled: true,
@@ -52,7 +55,7 @@ export default {
               sensitivity: 3,
             }
           }
-      }
+        }
       }
     }
   },
@@ -60,30 +63,39 @@ export default {
   watch: {
     lastCandle: {
       deep: true,
+      immediate: true,
       handler: function() {
-        this._data._chart.update()
+        if (this._data._chart) {
+          this._data._chart.update()
+        }
       }
     },
     pair: {
       deep: true,
-      handler: function() {
-        this._data._chart.destroy()
-        this.renderChart(this.chartData, this.options);
-        setTimeout(() => this._data._chart.update(), 100)
+      handler: async function() {
+        this.$data._chart.destroy()
+
+        this.renderChart(this.candleData, this.options);
+        if (this._data._chart) {
+          setTimeout(() => this._data._chart.update(), 1000)
+        }
       }
     }
   },
 
   beforeDestroy () {
-    this._data._chart.destroy()
+    this.$data._chart.destroy()
   },
 
   mounted () {
-    this.$nextTick(() => {
-      this.addPlugin(zoom);
-      this.renderChart(this.chartData, this.options);
-      setTimeout(() => this._data._chart.update(), 100)
+    this.addPlugin(zoom),
+    this.addPlugin({
+      id: 'annotation',
+      ...ChartAnnotation
     })
+
+    this.renderChart(this.candleData, this.options);
+    this.$data._chart.$zoom._originalOptions.x = {}
   },
 }
 </script>

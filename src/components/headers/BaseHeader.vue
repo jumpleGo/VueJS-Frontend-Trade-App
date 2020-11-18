@@ -10,7 +10,7 @@
         <ul class="navbar-nav col-sm-12">
           <li class="nav-item dropdown col-sm-1 offset-sm-11">
             <span 
-              class="nav-link dropdown-toggle text-muted"
+              class="user-icon nav-link dropdown-toggle text-muted"
               @click="toggleProfileModal">
               <i class="fa fa-user"/>
             </span>
@@ -31,7 +31,7 @@
                   </li>
                 <li><span>Баланс: {{ currentUser.balance }}$</span></li>
                 <li><span>Пополнть баланс</span></li>
-                <li><span>Вывод средств</span></li>
+                <router-link to="withdrawal" tag="li"><span>Вывод средств</span></router-link>
                 <li role="separator" class="divider"></li>
                 <li><span class="--red" @click="logout">Выход</span></li>
               </ul>
@@ -69,6 +69,19 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+.user-icon
+  padding-left: unset !important
+  padding-right: unset !important
+  line-height: unset !important
+  border-radius: 50%
+  border: 2px solid black
+  display: flex
+  justify-content: center
+  align-items: center
+  height: 30px
+  width: 30px
+  &:hover
+    cursor: pointer
 .divider
   margin: 0 !important
 .profile-modal
@@ -81,6 +94,7 @@ export default {
   ul > li:not(.divider)
     &:hover:not(.--verified)
       cursor: pointer
+      background: rgba(0,0,0, 0.03)
     padding: 8px
 .--verified
   color: white

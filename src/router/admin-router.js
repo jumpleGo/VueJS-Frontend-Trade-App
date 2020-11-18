@@ -3,20 +3,23 @@ import Main from '@/views/Main'
 import Registration from '@/views/Registration'
 import Dashboard from '@/views/Dashboard'
 import ResetPassword from '@/views/ResetPassword'
+import Withdrawal from '@/views/Withdrawal'
 
 import store from "@/store/"
 
 // Middleware
 const ifNotAuthenticated = (to, from, next) => {
-  if (!localStorage.getItem('tradingBTCToken')) return next()
-  next('/dashboard')
+  !localStorage.getItem('tradingBTCToken') ? next() : next('/dashboard')
 }
+
 const ifAuthenticated = async (to, from, next) => {
   if (localStorage.getItem('tradingBTCToken')) {
     await store.dispatch('auth/CHECK_AUTH')
     next()
-  } 
-  next('/login')
+  } else {
+    next('/login')
+  }
+  
 }
 
 const adminRoutes = [
@@ -47,6 +50,13 @@ const adminRoutes = [
     path: '/reset',
     name: 'reset',
     component: ResetPassword
+  },
+  {
+    path: '/withdrawal',
+    name: 'withdrawal',
+    component: Withdrawal,
+    beforeEnter: ifAuthenticated
+    
   }
 ]
 

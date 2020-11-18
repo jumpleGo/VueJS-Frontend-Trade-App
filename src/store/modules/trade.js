@@ -1,9 +1,12 @@
 import io from 'socket.io-client';
-const socket = io(process.env.VUE_APP_SERVER_URL); 
+const socket = io(process.env.VUE_APP_SERVER_URL, {
+  query: { userID: JSON.parse(localStorage.getItem('currentUser'))?._id } || {}
+}); 
 import axios from 'axios'
 import {MCandle} from './../../api/models/MCandle'
 
 const state = () => ({
+  drawChart: false,
   pair: {
     id: "BTCUSDT",
     base: "BTC", 
@@ -13,7 +16,7 @@ const state = () => ({
   allPairs: [],
   currentPrice: 0,
   currentTrend: null,
-  chartType: 'candle',
+  chartType: 'line',
 
   chartData: {
     labels: [],
@@ -23,7 +26,7 @@ const state = () => ({
       backgroundColor: 'rgba(3,127,252,0.02)',
       borderColor: "#037ffc",
       data: [],
-      pointRadius: [0]
+      pointRadius: 0
     }]
   },
 
@@ -32,20 +35,35 @@ const state = () => ({
     datasets: [{
       data: [],
     }]
-  }
+  },
+
+  currentCandle: {}
 })
 
 const getters = {
-  chartData: state => state.chartData,
-  candleData: state => state.candleData
+  chartData: (state) => (num) => ({
+    ...state.chartData,
+    datasets: [{
+      fill: true,
+      borderWidth: 0,
+      backgroundColor: 'rgba(3,127,252,0.02)',
+      borderColor: "#037ffc",
+      data: state.chartData.datasets[0].data.slice(-(num*30))
+    }] 
+  }),
+  candleData: state => state.candleData,
+  lastCandle: state => state.currentCandle
 }
 
 const mutations = {
   RERENDER_LAST_CANDLE: (state, candle) => {
     let candles = state.candleData.datasets[0].data
     candles[candles.length - 1] = candle
+
+    state.currentCandle = candle
     
   },
+  SET_DRAW_CHART: (state, value) => state.drawChart = value,
   SET_CHART_TYPE: (state, type) => state.chartType = type,
   SET_PERIOD: (state, period) => state.period = period,
   SET_PAIR: (state, pairObject) => state.pair = pairObject,
@@ -64,7 +82,6 @@ const mutations = {
   CLEAR_OLD_DATE: (state) => {
     state.chartData.labels = [],
     state.chartData.datasets[0].data = [],
-    state.chartData.datasets[0].pointRadius = []
 
     state.candleData.datasets[0].data = []
     state.currentPrice = 0
@@ -133,7 +150,7 @@ const actions = {
     let candles = context.state.candleData.datasets[0].data
     let currentCandleData = candles[candles.length - 1]
 
-    if (currentCandleData.t.getTime() === newCandleData.t.getTime()) {
+    if (currentCandleData?.t.getTime() === newCandleData.t.getTime()) {
       let updatedCandle = await context.dispatch('UPDATE_LIVE_CANDLE', {
         oldCandleData: currentCandleData, 
         newCandleData
@@ -148,9 +165,9 @@ const actions = {
   UPDATE_LIVE_CANDLE: (_, {oldCandleData, newCandleData}) => {
     return {
         t: oldCandleData.t,
-        o: oldCandleData.p,
-        h: oldCandleData.h >= newCandleData.h ? oldCandleData.h : newCandleData.h,
-        l: oldCandleData.l <= newCandleData.l ? oldCandleData.l : newCandleData.l,
+        o: newCandleData.o,
+        h: newCandleData.h,
+        l: newCandleData.l,
         c: newCandleData.c
       }
   },
@@ -164,7 +181,9 @@ const actions = {
       context.commit('SET_PRICE_INFO', data)
     });
     socket.on('MESSAGE_CANDLE', (data) => {
-      context.dispatch('WORK_WITH_CURRENT_CANDLE', new MCandle(data))
+      if (data) {
+        context.dispatch('WORK_WITH_CURRENT_CANDLE', new MCandle(data))
+      }
     });
     
     socket.on('unauthorized', () => { 

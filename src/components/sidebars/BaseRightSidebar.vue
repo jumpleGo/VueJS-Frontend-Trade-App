@@ -4,7 +4,7 @@
       <nav class="sidebar-nav">
         <ul id="sidebar-menu">
           <div class="form-actions pb-0 m-l-15 m-r-15">
-            <div class="pair">{{ pair.id }}</div>
+            <div class="pair">{{ pair.base }}/{{ pair.quote }}</div>
             <div 
               class="price" 
               :style="{color: trendColor}">
@@ -85,7 +85,7 @@ export default {
       return this.$store.state.user.currentUser
     },
     chartData () {
-      return this.$store.getters['trade/chartData']
+      return this.$store.getters['trade/chartData']()
     },
     rates () {
       return this.chartData?.datasets[0].data
@@ -127,6 +127,8 @@ export default {
           user: this.currentUser.id,
           currentPrice: this.showPrice,
           pair: this.pair.id,
+          base: this.pair.base,
+          quote: this.pair.quote,
           period: this.period,
           amount: this.amount,
           startDate: new Date(),

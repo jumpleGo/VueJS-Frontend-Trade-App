@@ -5,9 +5,13 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import store from './store'
 import Vuelidate from 'vuelidate'
+import moment from 'moment';
+import VueMoment from 'vue-moment';
+
+Vue.use(VueMoment, { moment });
 
 
-
+Vue.use(moment)
 Vue.use(Vuelidate)
 Vue.use(VueAxios, axios)
 

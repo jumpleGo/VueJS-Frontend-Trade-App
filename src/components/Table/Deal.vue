@@ -1,10 +1,10 @@
 <template>
   <tr>
     <th scope="row">{{ index + 1 }}</th>
-    <td>{{ deal.pair }}</td>
+    <td>{{ deal.base }}/{{ deal.quote }}</td>
     <td>
       <span :class="[`badge badge-${colorDeal}`]">
-        {{ deal.status }}
+        {{ deal.statusWord(deal.status)}}
       </span>
     </td>
     <td>{{ formateDate }}</td>
@@ -54,10 +54,10 @@ export default {
       return this.deal.trend === 'low' ? 'Ниже' : 'Выше'
     },
     formateDate () {
-      return moment(this.deal.startDate).format('LTS')
+      return moment(this.deal.startDate).format('LLL')
     },
     endDate () {
-      return moment(this.deal.endDate).format('LTS')
+      return moment(this.deal.endDate).format('LLL')
     },
     durationTimer () {
       if (this.duration && this.duration >= 10) {
@@ -73,7 +73,6 @@ export default {
     let end = moment(this.deal.endDate)
     let start = moment()
     let duration = moment.duration(end.diff(start))._milliseconds / 1000;
-    console.log(duration)
 
     if (duration > 0) {
       this.duration = duration.toFixed(0)
