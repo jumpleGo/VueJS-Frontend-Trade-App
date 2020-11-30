@@ -84,7 +84,7 @@ export default {
   },
 
   beforeDestroy () {
-    this.$data._chart.destroy()
+    this._data._chart.destroy()
   },
 
   mounted () {
@@ -95,7 +95,8 @@ export default {
     })
 
     this.renderChart(this.candleData, this.options);
-    this.$data._chart.$zoom._originalOptions.x = {}
+    this._data._chart.$zoom._originalOptions.x = {}
+    this.$data._chart.update()
   },
 }
 </script>

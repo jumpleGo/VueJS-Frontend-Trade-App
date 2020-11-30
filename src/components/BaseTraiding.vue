@@ -59,6 +59,7 @@ export default {
     pair: {
       deep: true,
       handler: async function() {
+        console.log('00')
         this.$store.commit('trade/SET_DRAW_CHART', false)
         this.$store.commit('trade/CLEAR_OLD_DATE')
 
@@ -71,6 +72,7 @@ export default {
   beforeDestroy() {
     this.$store.dispatch('trade/DISCONNECT_SOCKET')
     this.$store.commit('trade/CLEAR_OLD_DATE')
+    this.$store.commit('trade/SET_DRAW_CHART', false)
   },
   created () {
     this.$store.commit('trade/CLEAR_OLD_DATE')
@@ -84,10 +86,10 @@ export default {
       await this.$store.dispatch('trade/CONNECT_SOCKET')
     },
     async getChartsData () {
-      await this.$store.dispatch('trade/GET_CHART_DATA')
-      await this.$store.dispatch('trade/GET_CANDLE_DATA')
-      
-      this.$store.commit('trade/SET_DRAW_CHART', true)
+      let promises = [this.$store.dispatch('trade/GET_CHART_DATA'), this.$store.dispatch('trade/GET_CANDLE_DATA')]
+      Promise.all(promises).then(() => {
+        this.$store.commit('trade/SET_DRAW_CHART', true)
+      })
     }
   }
 }

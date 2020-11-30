@@ -148,6 +148,8 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.left-sidebar
+  padding-top: 50px !important
 .input-group-my
   display: flex
   flex-direction: column
@@ -155,7 +157,7 @@ export default {
   font-size: 15px
   font-weight: 500
 .feature-amount
-  color: green
+  color: #0ABF9E
   font-size: 20px
 .error
   font-size: 14px

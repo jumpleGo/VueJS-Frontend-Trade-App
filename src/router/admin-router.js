@@ -4,6 +4,8 @@ import Registration from '@/views/Registration'
 import Dashboard from '@/views/Dashboard'
 import ResetPassword from '@/views/ResetPassword'
 import Withdrawal from '@/views/Withdrawal'
+import Merchant from '@/views/BalanceMerchant'
+import Verification from '@/views/Verification'
 
 import store from "@/store/"
 
@@ -56,7 +58,18 @@ const adminRoutes = [
     name: 'withdrawal',
     component: Withdrawal,
     beforeEnter: ifAuthenticated
-    
+  },
+  {
+    path: '/merchant',
+    name: 'merchant',
+    component: Merchant,
+    beforeEnter: ifAuthenticated
+  },
+  {
+    path: '/verify',
+    name: 'verify',
+    component: Verification,
+    beforeEnter: ifAuthenticated
   }
 ]
 

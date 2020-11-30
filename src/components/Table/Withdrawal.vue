@@ -7,6 +7,7 @@
       </span>
     </td>
     <td>{{ formateDate }}</td>
+    <td>{{ w.type }}</td>
     <td class="color-primary">$ {{ w.amount }}</td>
   </tr>
 </template>

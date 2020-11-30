@@ -8,6 +8,7 @@ export class MWithd  {
         date: data.date || null,
         status: data.status || 'NEW',
         card: data.card || null,
+        type: data.type || 'Card',
         statusWord: function (status) {
           let word
           switch (status) {
@@ -32,6 +33,7 @@ export class MWithd  {
         date: null,
         status: 'NEW',
         card: null,
+        type: 'Card'
       }
     }
   }

@@ -203,7 +203,7 @@ const actions = {
   },
   
   DISCONNECT_SOCKET: () => {
-    socket.disconnect()
+    socket.disconnect(true)
   },
 
   GET_PAIRS: async (context) => {

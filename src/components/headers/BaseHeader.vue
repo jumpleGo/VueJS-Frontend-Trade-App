@@ -18,7 +18,9 @@
               v-if="profileModal"
               class="profile-modal">
               <ul class="dropdown-user">
-                <li :class="[currentUser.isVerified ? '--verified' : '--no-verified']">
+                <li 
+                  :class="[currentUser.isVerified ? '--verified' : '--no-verified']"
+                  @click="openVerify">
                   <span>
                     {{ isVerified }}
                   </span>
@@ -30,10 +32,10 @@
                     </span>
                   </li>
                 <li><span>Баланс: {{ currentUser.balance }}$</span></li>
-                <li><span>Пополнть баланс</span></li>
+                <router-link to="merchant" tag="li"><span>Пополнть баланс</span></router-link>
                 <router-link to="withdrawal" tag="li"><span>Вывод средств</span></router-link>
                 <li role="separator" class="divider"></li>
-                <li><span class="--red" @click="logout">Выход</span></li>
+                <li @click="logout"><span class="--red">Выход</span></li>
               </ul>
             </div>
           </li>
@@ -59,6 +61,11 @@ export default {
     }
   },
   methods: {
+    openVerify () {
+      if (!this.currentUser.isVerified) {
+        this.$router.push('/verify')
+      }
+    },
     toggleProfileModal() {
       this.profileModal = !this.profileModal
     },
@@ -92,9 +99,10 @@ export default {
   background: white 
   box-shadow: 3px 2px 8px -1px rgba(0,0,0,0.46)
   ul > li:not(.divider)
-    &:hover:not(.--verified)
-      cursor: pointer
+    &:hover:not(:first-child)
       background: rgba(0,0,0, 0.03)
+    &:hover
+      cursor: pointer
     padding: 8px
 .--verified
   color: white

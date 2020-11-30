@@ -14,7 +14,10 @@
                 </thead>
                 <tbody>
                   <tr @click="toggleList">
-                    <td class="pair">{{ `${currentPair.base}/${currentPair.quote}` }}</td>
+                    <td class="pair">
+                      {{ `${currentPair.base}/${currentPair.quote}` }}
+                      <img :class="['arrow', {'rotated': showAllPairs}]" src="/images/icons/back.svg">
+                    </td>
                     <td><span class="percent">1.8</span></td>
                   </tr>
                 </tbody>
@@ -113,6 +116,15 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.arrow
+  width: 16px
+  margin-left: 5px
+  transform: rotate(-90deg)
+  transition: all 0.3s
+.rotated
+  transform: rotate(90deg)
+.left-sidebar
+  padding-top: 50px !important
 table
   margin-bottom: unset
 .pairs-table
