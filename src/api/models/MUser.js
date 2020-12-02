@@ -7,6 +7,7 @@ export class MUser  {
         id: data._id || null,
         isVerified: data.isVerified || false,
         isAdmin: data.isAdmin || false,
+        isBlocked: data.isBlocked || false,
         name: data.name || 'No Name'
       }
     } else {
@@ -16,6 +17,7 @@ export class MUser  {
         id: null,
         isVerified: false,
         isAdmin: false,
+        isBlocked: false,
         name: 'No Name'
       }
     }

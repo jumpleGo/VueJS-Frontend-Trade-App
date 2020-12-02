@@ -5,3 +5,4 @@ export { default as deals } from "./deals";
 export { default as user } from "./user";
 export { default as withdrawal } from "./withdrawal";
 export { default as verify } from "./verify";
+export { default as admin } from "./admin";

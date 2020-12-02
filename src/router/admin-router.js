@@ -6,6 +6,7 @@ import ResetPassword from '@/views/ResetPassword'
 import Withdrawal from '@/views/Withdrawal'
 import Merchant from '@/views/BalanceMerchant'
 import Verification from '@/views/Verification'
+import AdminPanel from '@/views/AdminPanel'
 
 import store from "@/store/"
 
@@ -22,6 +23,17 @@ const ifAuthenticated = async (to, from, next) => {
     next('/login')
   }
   
+}
+
+const isAdmin = async (to, from, next) => {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'))
+  console.log("🚀 ~ file: admin-router.js ~ line 30 ~ isAdmin ~ currentUser", currentUser)
+
+  if (currentUser.isAdmin) {
+    next()
+  } else {
+    next(from.fullPath)
+  }
 }
 
 const adminRoutes = [
@@ -70,6 +82,12 @@ const adminRoutes = [
     name: 'verify',
     component: Verification,
     beforeEnter: ifAuthenticated
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: AdminPanel,
+    beforeEnter: isAdmin
   }
 ]
 

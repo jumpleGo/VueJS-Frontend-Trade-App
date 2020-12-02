@@ -110,6 +110,7 @@ const actions = {
       console.log("user", user)
       if (user.data.user) {
         context.commit('user/SET_CURRENT_USER', user.data.user, {root: true})
+        localStorage.setItem('currentUser', JSON.stringify(user.data.user))
       } else {
         context.dispatch('LOGOUT')
       }

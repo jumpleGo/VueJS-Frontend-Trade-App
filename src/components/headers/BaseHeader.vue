@@ -34,6 +34,12 @@
                 <li><span>Баланс: {{ currentUser.balance }}$</span></li>
                 <router-link to="merchant" tag="li"><span>Пополнть баланс</span></router-link>
                 <router-link to="withdrawal" tag="li"><span>Вывод средств</span></router-link>
+                <router-link v-if="currentUser.isAdmin" to="admin" tag="li">
+                  <img 
+                    style="width: 20px; margin-right: 10px"
+                    src="/images/icons/settings.svg" alt="">
+                  <span>Админ панель</span>
+                </router-link>
                 <li role="separator" class="divider"></li>
                 <li @click="logout"><span class="--red">Выход</span></li>
               </ul>
