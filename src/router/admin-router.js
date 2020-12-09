@@ -7,6 +7,7 @@ import Withdrawal from '@/views/Withdrawal'
 import Merchant from '@/views/BalanceMerchant'
 import Verification from '@/views/Verification'
 import AdminPanel from '@/views/AdminPanel'
+import Referral from '@/views/Referral'
 
 import store from "@/store/"
 
@@ -27,7 +28,6 @@ const ifAuthenticated = async (to, from, next) => {
 
 const isAdmin = async (to, from, next) => {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'))
-  console.log("🚀 ~ file: admin-router.js ~ line 30 ~ isAdmin ~ currentUser", currentUser)
 
   if (currentUser.isAdmin) {
     next()
@@ -88,6 +88,12 @@ const adminRoutes = [
     name: 'admin',
     component: AdminPanel,
     beforeEnter: isAdmin
+  },
+  {
+    path: '/referral',
+    name: 'referral',
+    component: Referral,
+    beforeEnter: ifAuthenticated
   }
 ]
 

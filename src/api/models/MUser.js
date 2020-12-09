@@ -8,7 +8,9 @@ export class MUser  {
         isVerified: data.isVerified || false,
         isAdmin: data.isAdmin || false,
         isBlocked: data.isBlocked || false,
-        name: data.name || 'No Name'
+        name: data.name || 'No Name',
+        created_at: data.created_at,
+        withdrawalBlocked: data.withdrawalBlocked || false
       }
     } else {
       return {
@@ -18,7 +20,8 @@ export class MUser  {
         isVerified: false,
         isAdmin: false,
         isBlocked: false,
-        name: 'No Name'
+        name: 'No Name',
+        withdrawalBlocked: false
       }
     }
   }

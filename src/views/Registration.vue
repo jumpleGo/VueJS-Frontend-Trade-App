@@ -79,8 +79,8 @@ export default {
   methods: {
     submit() {
       const { email, name, password } = this
-
-      this.$store.dispatch('auth/REGISTER', { email, name, password })
+      const { ref } = this.$route.query
+      this.$store.dispatch('auth/REGISTER', { email, name, password, ref })
     },
   },
 }

@@ -7,7 +7,7 @@
         to="dashboard">
         {{ toTrade }}
       </router-link>
-      <div class="col-lg-6 offset-1">
+      <div v-if="!currentUser.withdrawalBlocked" class="col-lg-6 offset-1">
         <div class="card">
           <div class="card-title">
             <h4>Вывод средств</h4>
@@ -34,6 +34,11 @@
                       v-if="errBalance"
                       class="error">
                       Недостаточно средств на балансе
+                    </span>
+                    <span 
+                      v-if="errMinLength"
+                      class="error">
+                      min: {{ this.minLengthWithdrawal }}
                     </span>
                 </div>
                 <div 
@@ -104,8 +109,13 @@
           </div>
         </div>
       </div>
+      <div v-else class="col-lg-6 offset-1">
+        <div class="card">
+          <h4>Для вашего аккаунта заблокирована возможность вывода средств.</h4>
+        </div>
+      </div>
     </div>
-    <withdrawal-table />
+    <withdrawal-table v-if="!currentUser.withdrawalBlocked" />
   </div>
 </template>
 
@@ -125,6 +135,7 @@ export default {
     card: null,
     amount: null,
     errBalance: false,
+    errMinLength: false,
     paymentTypes: [
       {
         name: 'Card',
@@ -175,6 +186,15 @@ export default {
 
   methods: {
     createRequest () {
+      if (this.amount < this.minLengthWithdrawal) {
+        this.errMinLength = true
+        setTimeout (() => {
+          this.errMinLength = false
+        }, 2000)
+        return 
+      }
+
+      
       if (this.currentUser.balance >= this.amount) {
         this.$store.dispatch('withdrawal/CREATE_REQUEST', {
           card: this.card,

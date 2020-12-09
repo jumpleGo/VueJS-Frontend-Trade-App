@@ -7,13 +7,17 @@
 
 <script>
 import UsersTable from '@/components/admin/UsersTable'
+import VerificationTable from '@/components/admin/VerificationTable'
 import WithdrawalsTable from '@/components/admin/WithdrawalsTable'
+import PlatformSettings from '@/components/admin/PlatformSettings'
 import AdminLeftSidebar from '@/components/admin/AdminLeftSidebar'
 export default {
   components: {
     UsersTable,
+    VerificationTable,
     WithdrawalsTable,
-    AdminLeftSidebar
+    AdminLeftSidebar,
+    PlatformSettings
   },
   name: 'AdminPanel',
 

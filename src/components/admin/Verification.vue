@@ -1,46 +1,63 @@
 <template>
   <tr>
     <th scope="row">{{ index + 1 }}</th>
-    <td>{{ w.amount }}$</td>
+    <td>
+      {{ v.userObject.email }}
+    </td>
     <td>
       <span 
         :class="[`badge badge-${colorStatus}`]">
-        {{ statusWord(w.status)}}
+        {{ statusWord(v.status)}}
       </span>
     </td>
-    <td v-if="!w.archived">
+    <td>
+      <span>
+        {{ v.fullName }}
+      </span>
+    </td>
+    <td>
+      <span>
+        {{ v.phone }}
+      </span>
+    </td>
+    <td>
+      <span>
+        {{ v.address }}
+      </span>
+    </td>
+    <td>
+      <span>
+        {{ v.birthdate | moment('LL') }}
+      </span>
+    </td>
+    <td>
+      <div class="images">
+        <img 
+          v-for="img in v.files"
+          :key="img" 
+          style="width: 30px"
+          :src="img"
+          @click="$emit('open-image', img)">
+      </div>
+    </td>
+    <td v-if="!v.archived">
       <button @click="toggleStatus('REJECTED')">
         Отклонить
       </button>
     </td>
-    <td v-if="!w.archived">
+    <td v-if="!v.archived">
       <button @click="toggleStatus('ACCEPTED')">
-        Подтвердить
+        Принять
       </button>
-    </td>
-    <td>
-      <span>
-        Дата {{ w.date | moment('LLL') }}
-      </span>
-    </td>
-    <td>
-      <span>
-        Счет: {{ w.card }}
-      </span>
-    </td>
-    <td>
-      <span>
-        {{ w.type }}
-      </span>
     </td>
   </tr>
 </template>
 
 <script>
 export default {
-  name: 'Withdrawal',
+  name: 'Verification',
   props: {
-    w: {
+    v: {
       type: Object,
       required: true
     },
@@ -50,11 +67,11 @@ export default {
   computed: {
     colorStatus () {
       let color
-      if (this.w.status === 'NEW') {
+      if (this.v.status === 'NEW') {
         color = 'primary'
-      } else if (this.w.status === 'ACCEPTED') {
+      } else if (this.v.status === 'ACCEPTED') {
         color = 'success'
-      } else if (this.w.status === 'REJECTED') {
+      } else if (this.v.status === 'REJECTED') {
         color = 'danger'
       }
       return color
@@ -66,11 +83,10 @@ export default {
 
   methods: {
     toggleStatus (status) {
-      this.$store.dispatch('admin/SET_NEW_STATUS', {
-        id: this.w._id,
+      this.$store.dispatch('admin/SET_VREQ_STATUS', {
+        id: this.v._id,
         index: this.index, 
-        user: this.w.user,
-        amount: this.w.amount,
+        user: this.v.user,
         status
       })
     },

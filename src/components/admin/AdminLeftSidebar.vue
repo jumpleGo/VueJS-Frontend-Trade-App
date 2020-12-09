@@ -40,7 +40,11 @@ export default {
       },
       {
         name: 'Заявки на верификацию',
-        path: 'varificationTable'
+        path: 'verificationTable'
+      },
+      {
+        name: 'Настройки платформы',
+        path: 'platformSettings'
       },
     ]
   }),

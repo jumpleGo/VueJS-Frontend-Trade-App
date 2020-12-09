@@ -25,6 +25,23 @@ const actions = {
       console.log(err)
     }
   },
+  UPLOAD_IMAGE: async (_, formDataImages) => {
+    try {
+      let uploads = formDataImages.map(async image => {
+        let link = await axios({
+          method: 'post',
+          url: `${process.env.VUE_APP_SERVER_URL_API}/uploadImage`,
+          headers: {'Content-Type': 'application/json'},
+          data: image
+        })
+        return link
+      })
+      const links = Promise.all(uploads)
+      return links
+    } catch (err) {
+      console.log(err)
+    }
+  },
   GET_USER_REQUEST: async (context, user) => {
     try {
       const result = await axios({
@@ -33,7 +50,8 @@ const actions = {
         headers: {'Content-Type': 'application/json'},
         data: {user}
       })
-      console.log("🚀 ~ file: verify.js ~ line 36 ~ GET_USER_REQUEST: ~ result", result)
+      console.log("🚀 ~ file: verify.js ~ line 53 ~ GET_USER_REQUEST: ~ result", result)
+      
       if (result.status === 200) {
         context.commit('SET_VERIFY_REQ', result.data[0])
       }

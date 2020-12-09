@@ -30,10 +30,10 @@ export default {
       if (this.w.status === 'NEW') {
         return 'secondary'
       }
-      if (this.w.status === 'COMPLETED') {
+      if (this.w.status === 'ACCEPTED') {
         return 'success'
       }
-      if (this.w.status === 'CANCELED') {
+      if (this.w.status === 'REJECTED') {
         return 'danger'
       }
       return color

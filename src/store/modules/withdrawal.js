@@ -54,7 +54,18 @@ const actions = {
   },
 
   GET_MIN_LENGTH_NUMBER: async (context) => {
-    context.commit('SET_MIN_LENGTH_NUMBER', 16)
+    try {
+      const res = await axios({
+        method: 'get',
+        url: `${process.env.VUE_APP_SERVER_URL_API}/platformSettings`,
+        headers: {'Content-Type': 'application/json'},
+      })
+      
+      context.commit('SET_MIN_LENGTH_NUMBER', res.data[0].minAmount)
+      console.log("🚀 ~ file: withdrawal.js ~ line 65 ~ GET_MIN_LENGTH_NUMBER: ~ res.data", res.data)
+    } catch(err)   {
+      console.log(err)
+    }
   }
 }
 

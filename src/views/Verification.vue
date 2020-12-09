@@ -25,6 +25,13 @@
       <div 
         v-else
         class="col-lg-6 offset-1">
+        <div
+          v-if="verifyRequest && verifyRequest.status === 'REJECTED'" 
+          class="message-block --error">
+          <div>
+            <h3>Ваша заявка была отклонена</h3>
+          </div>
+        </div>
         <div class="card">
           <div class="card-title">
             <h4>Верификация</h4>
@@ -120,8 +127,8 @@
 <script>
 import BaseHeader from '@/components/headers/BaseHeader'
 import FileUpload from 'vue-upload-component'
-
 import { required, minLength } from 'vuelidate/lib/validators'
+
 export default {
   name: 'Verification',
   components: {
@@ -172,13 +179,21 @@ export default {
 
   methods: {
     async createRequest () {
-      let editedFiles = this.files.map(file => file.file)
+      let formDataImages = this.files.map(function (file) {
+        let fd = new FormData()
+        fd.append('image', file.file)
+        fd.append('name', file.name)
+        return fd
+      })
+      let images = await this.$store.dispatch('verify/UPLOAD_IMAGE', formDataImages)
+      let links = images.map(i => i.data.link)
+
       await this.$store.dispatch('verify/CREATE_REQUEST', {
         birthdate: this.birthdate, 
         phone: this.phone, 
         address: this.address, 
         fullName: this.fullName, 
-        files: editedFiles,
+        files: links,
         user: this.currentUser.id,
         status: 'NEW'
       })
@@ -218,6 +233,8 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+.--error
+  color: red
 .message-block
   margin-top: 40px
   padding-bottom: 40px

@@ -9,16 +9,17 @@ export class MWithd  {
         status: data.status || 'NEW',
         card: data.card || null,
         type: data.type || 'Card',
+        archived: false,
         statusWord: function (status) {
           let word
           switch (status) {
             case 'NEW':
               word = 'Новая'
               break
-            case 'CANCELED':
+            case 'REJECTED':
               word = 'Отменена'
               break
-            case 'COMPLETED':
+            case 'ACCEPTED':
               word = 'Завершена'
               break
           }
