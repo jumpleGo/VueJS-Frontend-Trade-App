@@ -16,6 +16,7 @@
             </span>
             <div 
               v-if="profileModal"
+              v-click-outside="toggleProfileModal"
               class="profile-modal">
               <ul class="dropdown-user">
                 <li 
@@ -34,6 +35,7 @@
                 <li><span>Баланс: {{ currentUser.balance }}$</span></li>
                 <router-link to="merchant" tag="li"><span>Пополнть баланс</span></router-link>
                 <router-link to="withdrawal" tag="li"><span>Вывод средств</span></router-link>
+                <router-link to="referral" tag="li"><span>Реферальная программа</span></router-link>
                 <router-link v-if="currentUser.isAdmin" to="admin" tag="li">
                   <img 
                     style="width: 20px; margin-right: 10px"
