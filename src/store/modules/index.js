@@ -7,3 +7,4 @@ export { default as withdrawal } from "./withdrawal";
 export { default as verify } from "./verify";
 export { default as admin } from "./admin";
 export { default as referral } from './referral';
+export { default as promocodes } from './promocodes';

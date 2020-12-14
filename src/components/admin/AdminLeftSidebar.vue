@@ -50,6 +50,10 @@ export default {
         name: 'Партнеры',
         path: 'platformPartnersTable'
       },
+      {
+        name: 'Промокоды',
+        path: 'promocodesTable'
+      },
     ]
   }),
   methods: {

@@ -12,6 +12,7 @@ import WithdrawalsTable from '@/components/admin/WithdrawalsTable'
 import PlatformSettings from '@/components/admin/PlatformSettings'
 import AdminLeftSidebar from '@/components/admin/AdminLeftSidebar'
 import PlatformPartnersTable from '@/components/admin/PlatformPartnersTable'
+import PromocodesTable from '@/components/admin/PromocodesTable'
 export default {
   components: {
     UsersTable,
@@ -19,7 +20,8 @@ export default {
     WithdrawalsTable,
     AdminLeftSidebar,
     PlatformSettings,
-    PlatformPartnersTable
+    PlatformPartnersTable,
+    PromocodesTable
   },
   name: 'AdminPanel',
 
