@@ -50,7 +50,6 @@ const actions = {
         headers: {'Content-Type': 'application/json'},
         data: {user}
       })
-      console.log("🚀 ~ file: verify.js ~ line 53 ~ GET_USER_REQUEST: ~ result", result)
       
       if (result.status === 200) {
         context.commit('SET_VERIFY_REQ', result.data[0])

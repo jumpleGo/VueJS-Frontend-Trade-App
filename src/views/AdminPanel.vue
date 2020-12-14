@@ -11,13 +11,15 @@ import VerificationTable from '@/components/admin/VerificationTable'
 import WithdrawalsTable from '@/components/admin/WithdrawalsTable'
 import PlatformSettings from '@/components/admin/PlatformSettings'
 import AdminLeftSidebar from '@/components/admin/AdminLeftSidebar'
+import PlatformPartnersTable from '@/components/admin/PlatformPartnersTable'
 export default {
   components: {
     UsersTable,
     VerificationTable,
     WithdrawalsTable,
     AdminLeftSidebar,
-    PlatformSettings
+    PlatformSettings,
+    PlatformPartnersTable
   },
   name: 'AdminPanel',
 

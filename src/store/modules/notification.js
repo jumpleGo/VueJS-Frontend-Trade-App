@@ -12,10 +12,7 @@ const getters = {
 }
 
 const mutations = {
-  SET_NOTIFICATION_SETTINGS: (state, settings) => {
-    console.log("settings", settings)
-    state.settings = {...state.settings, ...settings}
-  }
+  SET_NOTIFICATION_SETTINGS: (state, settings) => state.settings = {...state.settings, ...settings}
 }
 
 const actions = {

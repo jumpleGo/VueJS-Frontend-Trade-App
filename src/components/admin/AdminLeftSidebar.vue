@@ -46,6 +46,10 @@ export default {
         name: 'Настройки платформы',
         path: 'platformSettings'
       },
+      {
+        name: 'Партнеры',
+        path: 'platformPartnersTable'
+      },
     ]
   }),
   methods: {

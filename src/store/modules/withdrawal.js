@@ -17,7 +17,6 @@ const mutations = {
 
 const actions = {
   CREATE_REQUEST: async (context, request) => {
-    console.log("request", request)
     try {
       const result = await axios({
         method: 'post',
@@ -42,7 +41,6 @@ const actions = {
         headers: {'Content-Type': 'application/json'},
         data: {userId}
       })
-      console.log("result", result)
 
       if (result.data.length) {
         const withdrawals = result.data.map(w => new MWithd(w))
@@ -62,7 +60,6 @@ const actions = {
       })
       
       context.commit('SET_MIN_LENGTH_NUMBER', res.data[0].minAmount)
-      console.log("🚀 ~ file: withdrawal.js ~ line 65 ~ GET_MIN_LENGTH_NUMBER: ~ res.data", res.data)
     } catch(err)   {
       console.log(err)
     }

@@ -75,21 +75,20 @@ const actions = {
       context.commit('SET_REGISTER_ERROR', 'already_used')
     })
     if (data.ref) {
-      context.dispatch('CREATE_REF', {ref: data.ref, user: res.data.user._id})
+      context.dispatch('CREATE_REF', {partner: data.ref, user: res.data.user._id})
     }
     if (res?.status === 200) {
       context.dispatch('LOGIN', data)
     }
   },
 
-  CREATE_REF: async (context, {ref, user}) => {
-    console.log("🚀 ~ file: auth.js ~ line 84 ~ CREATE_REF: ~ ref", ref)
+  CREATE_REF: async (context, {partner, user}) => {
     try {
       await axios({
         method: 'post',
         url: `${process.env.VUE_APP_SERVER_URL_API}/createReferralConnection`,
         headers: {'Content-Type': 'application/json'},
-        data: {ref, user, date: new Date()}
+        data: {partner, user, date: new Date()}
       })
     } catch (err) {
       console.log("🚀 ~ file: auth.js ~ line 96 ~ CREATE_REF: ~ err", err)
@@ -97,7 +96,6 @@ const actions = {
   },
 
   RESET: async (context, email) => {
-    console.log("email", email)
     try {
       const res = await axios({
         method: 'post',
@@ -105,7 +103,6 @@ const actions = {
         headers: {'Content-Type': 'application/json'},
         data: email
       })
-      console.log("res", res)
 
       let { error } = res.data
       if (error) {
@@ -136,7 +133,6 @@ const actions = {
         headers: {'Content-Type': 'application/json'},
         data: {email: JSON.parse(currentUser).email}
       })
-      console.log("user", user)
       if (user.data.user) {
         if (user.data.user.isBlocked) {
           context.dispatch('notification/SET_NOTIFICATION_SETTINGS',

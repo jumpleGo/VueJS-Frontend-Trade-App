@@ -19,7 +19,6 @@ const mutations = {
 
 const actions = {
   CREATE_DEAL: async (context, deal) => {
-    console.log("deal", deal)
     try {
       const result = await axios({
         method: 'post',
@@ -69,7 +68,6 @@ const actions = {
     }
   },
   UPDATE_DEAL_STATUS: async (context, {deal, price}) => {
-    console.log("deal, price", deal, price)
     if ((deal.currentPrice < price && deal.trend === 'high') || (deal.currentPrice > price && deal.trend === 'low')) {
       await context.dispatch('user/UPDATE_USER_BALANCE', {
         amount: deal.amount * 1.8,
