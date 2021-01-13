@@ -2,7 +2,6 @@ import axios from 'axios'
 import { MWithd } from '@/api/models/MWithd' 
 const state = () => ({
   withdrawals: [],
-  minLengthWithdrawal: null
 })
 
 const getters = {
@@ -10,7 +9,6 @@ const getters = {
 }
 
 const mutations = {
-  SET_MIN_LENGTH_NUMBER: (state, num) => state.minLengthWithdrawal = num,
   ADD_WITHDRAWAL: (state, w) => state.withdrawals.unshift(w),
   SET_WITHDRAWALS: (state, w) => state.withdrawals = w.reverse(),
 }
@@ -51,19 +49,7 @@ const actions = {
     }
   },
 
-  GET_MIN_LENGTH_NUMBER: async (context) => {
-    try {
-      const res = await axios({
-        method: 'get',
-        url: `${process.env.VUE_APP_SERVER_URL_API}/platformSettings`,
-        headers: {'Content-Type': 'application/json'},
-      })
-      
-      context.commit('SET_MIN_LENGTH_NUMBER', res.data[0].minAmount)
-    } catch(err)   {
-      console.log(err)
-    }
-  }
+  
 }
 
 export default {

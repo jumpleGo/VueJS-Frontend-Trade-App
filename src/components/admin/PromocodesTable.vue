@@ -1,6 +1,6 @@
 <template>
   <div class="col-lg-12">
-    <div class="card">
+    <div class="card create-block-forms">
       <div class="promocode__create-block">
         <span>Промокоды на X сумму к депозиту при пополнении от определенной суммы</span>
         <span>Бонус $</span>
@@ -10,6 +10,15 @@
         <span>Минимальная сумма пополнения</span>
         <input v-model="deposit.minDeposit" type="number" placeholder="Минимальная сумма пополнения">
         <button @click="createPromocodes('deposit')">Создать</button>
+      </div>
+
+      <div class="promocode__create-block">
+        <span>Промокоды на % к депозиту:</span>
+        <span>Проценнт</span>
+        <input v-model="percent.bonus" type="number" placeholder="%">
+        <span>Количество промокодов</span>
+        <input v-model="percent.count" type="number" placeholder="Количество">
+        <button @click="createPromocodes('percent')">Создать</button>
       </div>
     </div>
     <div class="card">
@@ -21,18 +30,6 @@
         type="text" 
         placeholder="Поиск"
         class="input">
-      <div v-if="!search" class="filter">
-        <div v-for="f in filters" :key="f">
-          <input  
-            v-model="filter"
-            :id="f" 
-            type="radio"
-            :value="f">
-            <label :for="f">
-              {{ wordByFilter(f) }}
-            </label>
-        </div>
-      </div>
       <div class="card-body">
         <div class="table-responsive">
           <table class="table">
@@ -42,6 +39,8 @@
                 <td><b>Дата создания</b></td>
                 <td><b>Код</b></td>
                 <td><b>Мин. депозит</b></td>
+                <td><b>Бонус</b></td>
+                <td><b>Активность</b></td>
               </tr>
             </thead>
             <tbody>
@@ -69,8 +68,10 @@ export default {
       minDeposit: 100,
       bonus: 10
     },
-    filter: 'all',
-    filters: ['all', 'active', 'inactive']
+    percent: {
+      count: 1,
+      bonus: 10
+    }
   }),
   components: {
     Promocode
@@ -115,13 +116,18 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+.create-block-forms
+  display: flex
+  flex-direction: row
+  justify-content: space-between
 .promocode__create-block
   display: flex
   flex-direction: column
   width: 30%
   span
     margin-top: 10px
-    font-size: 12px
+    font-size: 14px
+    font-weight: bold
   input + input
     margin-top: 10px
   button

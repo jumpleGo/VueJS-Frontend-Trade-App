@@ -2,12 +2,11 @@ import axios from 'axios'
 const state = () => ({
   partner: null,
   referrals: [],
-  depositTable: {},
   platformPartners: []
 })
 
 const getters = {
-  depositTable: state => (id) => state.depositTable[id]
+
 }
 
 const mutations = {

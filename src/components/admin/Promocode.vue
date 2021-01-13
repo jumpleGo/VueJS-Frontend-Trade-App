@@ -4,20 +4,14 @@
     <td>{{ code.created_at | moment('LLL') }}</td>
     <td>{{ code.code }}</td>
     <td>{{ code.minDeposit }}</td>
-    <!-- <td>
-      <span 
-        :class="[`badge badge-${colorIsBlocked}`]"
-        @click="toggleStatus({isBlocked: !user.isBlocked})">
-        {{ isBlockedWord(user.isBlocked) }}
-      </span>
-    </td>
+    <td>{{ code.bonus }}{{ code.minDeposit ? '$' : '%' }}</td>
     <td>
       <span 
-        :class="[`badge badge-${colorIsBlockedWithdrawal}`]"
-        @click="toggleStatus({withdrawalBlocked: !user.withdrawalBlocked})">
-        {{ isWithdrawalBlockedWord(user.withdrawalBlocked) }}
+        class="badge badge-danger"
+        @click="toggleStatus(code._id)">
+        Деактивировать
       </span>
-    </td> -->
+    </td>
   </tr>
 </template>
 
@@ -32,15 +26,10 @@ export default {
     index: Number,
   },
 
-  computed: {
-    
-  },
-  mounted () {
- 
-  },
-
   methods: {
-    
+    toggleStatus (id) {
+      this.$store.dispatch('promocodes/DEACTIVATE_PROMOCODE', id)
+    }
   }
 }
 </script>

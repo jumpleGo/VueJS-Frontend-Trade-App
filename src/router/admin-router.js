@@ -19,6 +19,7 @@ const ifNotAuthenticated = (to, from, next) => {
 const ifAuthenticated = async (to, from, next) => {
   if (localStorage.getItem('tradingBTCToken')) {
     await store.dispatch('auth/CHECK_AUTH')
+    await store.dispatch('settings/GET_PLATFORM_SETTINGS')
     next()
   } else {
     next('/login')
@@ -30,6 +31,7 @@ const isAdmin = async (to, from, next) => {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'))
 
   if (currentUser.isAdmin) {
+    await store.dispatch('settings/GET_PLATFORM_SETTINGS')
     next()
   } else {
     next(from.fullPath)

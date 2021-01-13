@@ -8,3 +8,5 @@ export { default as verify } from "./verify";
 export { default as admin } from "./admin";
 export { default as referral } from './referral';
 export { default as promocodes } from './promocodes';
+export { default as settings } from './settings'
+export { default as deposit } from './deposit'

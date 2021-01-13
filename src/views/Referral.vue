@@ -21,7 +21,15 @@
               </div>
             </div>
 
-            <b v-if="referrals.length">Ваши рефералы</b>
+            <b v-if="referrals.length">Ваши рефералы ({{ referrals.length }})</b>
+            <div>
+              <input id="all" v-model="filter" type="radio" value="all">
+              <label for="all">Все</label>
+            </div>
+            <div>
+              <input id="withDeposits" v-model="filter" type="radio" value="withDeposits">
+              <label for="withDeposits">С депозитами</label>
+            </div>
             <div v-if="referrals.length" class="referrals">
               <div 
                 v-for="(referral, index) in referrals"
@@ -43,11 +51,16 @@
               </div>
             </div>
             <!--End Invoice Mid-->
+            <div v-else class="no-table">
+              <b>Пока у вас нет ни одного реферала</b>
+              <div>
+                <img src="/images/icons/files.svg"> Тут будут данные о депозитах реферала
+              </div>
+            </div>
 
             <div 
-              v-if="currentReferral"
+              v-if="currentReferral && currentReferral.deposits.length"
               id="invoice-bot">
-
               <div id="invoice-table">
                 <div class="table">
                   <table class="table">
@@ -63,15 +76,17 @@
                       </td>
                     </tr>
 
-                    <tr class="service">
+                    <tr 
+                      v-for="dep in currentReferral.deposits"
+                      :key="dep._id"
+                      class="service">
                       <td class="tableitem">
-                        <p class="itemtext">Communication</p>
                       </td>
                       <td class="tableitem">
-                        <p class="itemtext">$75</p>
+                        <p class="itemtext">${{ dep.amount }}</p>
                       </td>
                       <td class="tableitem">
-                        <p class="itemtext">$375.00</p>
+                        <p class="itemtext">${{ dep.partnerEaring }}</p>
                       </td>
                     </tr>
                     <tr class="tabletitle">
@@ -80,18 +95,35 @@
                         <h2>Итог заработка от реферала</h2>
                       </td>
                       <td class="payment">
-                        <h2>$3,644.25</h2>
+                        <h2>${{finalEaring}}</h2>
+                      </td>
+                    </tr>
+                    <tr v-if="totalEaring" class="tabletitle">
+                      <td></td>
+                      <td class="Rate">
+                        <h2>Итог заработка от всех рефералов</h2>
+                      </td>
+                      <td class="payment">
+                        <h2>${{totalEaring}}</h2>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td class="Rate">
+                        <h2>Сумма всех депозитов рефералла:</h2>
+                      </td>
+                      <td class="payment">
+                        <h2>${{ allDepositsForCurrentReferral }}</h2>
                       </td>
                     </tr>
                   </table>
                 </div>
               </div>
             </div>
-
             <div v-else class="no-table">
-              <b>Пока у вас нет ни одного реферала</b>
+              <b>Нет пополнений</b>
               <div>
-                <img src="/images/icons/files.svg"> Тут будут данные о депозитах реферала
+                <img src="/images/icons/files.svg"> У этого реферала нет пополнений
               </div>
             </div>
           </div>
@@ -104,10 +136,41 @@
 export default {
   name: 'Referral',
   data: () => ({
-    currentReferral: null
+    currentReferral: null,
+    filter: 'all'
   }),
 
   computed: {
+    totalEaring () {
+      if (this.referrals.length === 1) {
+        return this.finalEaring
+      } else if (this.referrals.length > 1) {
+        return this.allDeposits.reduce((pr, cur) => {
+          return pr + cur.partnerEaring
+        }, 0)
+      } else {
+        return 0
+      }
+    },
+    allDeposits () {
+      return this.referrals.map(user => user.deposits).flat()
+    },
+    allDepositsForCurrentReferral () {
+      return this.currentReferral.deposits.length 
+        ? this.currentReferral.deposits.reduce((pr, cur) => {
+            return pr + cur.amount
+          }, 0)
+        : 0
+    },
+    finalEaring () {
+      if (this.currentReferral.deposits.length > 1) {
+        return this.currentReferral.deposits.reduce((pr, cur) => {
+          return pr + cur.partnerEaring
+        }, 0)
+      } else {
+        return this.currentReferral.deposits[0].partnerEaring
+      }
+    },
     currentUser () {
       return this.$store.state.user.currentUser
     },
@@ -115,11 +178,10 @@ export default {
       return this.$store.state.referral.partner
     },
     referrals() {
-      return this.$store.state.referral.referrals
-    },
-    depositTable () {
-      return this.$store.getters['referral/depositTable'](this.currentReferral._id)
-    },
+      return this.filter === 'all'
+        ? this.$store.state.referral.referrals
+        : this.$store.state.referral.referrals.filter(ref => ref.deposits.length)
+    }
   },
   watch: {
     referrals (referrals) {
@@ -133,8 +195,42 @@ export default {
     this.getMyReferrals()
   },
   methods: {
+    fallbackCopyTextToClipboard(text) {
+      var textArea = document.createElement("textarea");
+      textArea.value = text;
+      
+      // Avoid scrolling to bottom
+      textArea.style.top = "0";
+      textArea.style.left = "0";
+      textArea.style.position = "fixed";
+
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+
+      try {
+        document.execCommand('copy');
+      } catch (err) {
+        console.error('Fallback: Oops, unable to copy', err);
+      }
+
+      document.body.removeChild(textArea);
+    },
+
+
     copyReferralLink () {
       let text = `${document.location.origin}/registration?ref=${this.currentUser.id}`
+      if (!navigator.clipboard) {
+        this.fallbackCopyTextToClipboard(text);
+        this.$store.dispatch('notification/SET_NOTIFICATION_SETTINGS',
+          {
+            show: true,
+            time: 2000,
+            text: 'Ссылка скопирована'
+          }
+        )
+        return;
+      }
       navigator.clipboard.writeText(text)
       this.$store.dispatch('notification/SET_NOTIFICATION_SETTINGS',
         {

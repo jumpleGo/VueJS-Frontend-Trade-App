@@ -3,26 +3,26 @@
     <div class="card">
       Минимальная сумма вывода $
       <input 
-        v-model="settings.minAmount"
+        v-model="settings.minAmountForWithdrawal"
         type="number" 
         min="1"
-        @blur="setNewSettings({minAmount: +settings.minAmount})">
+        @blur="setNewSettings({minAmountForWithdrawal: +settings.minAmountForWithdrawal})">
     </div>
     <div class="card">
       Минимальная сумма ввода $
       <input 
-        v-model="settings.minAmountUpBalance"
+        v-model="settings.minAmountForUp"
         type="number" 
         min="1"
-        @blur="setNewSettings({minAmountUpBalance: +settings.minAmountUpBalance})">
+        @blur="setNewSettings({minAmountForUp: +settings.minAmountForUp})">
     </div>
     <div class="card">
       Минимальная сумма депозитов для вывода $
       <input 
-        v-model="settings.allDepositsAmount"
+        v-model="settings.allDepositsForWithdrawal"
         type="number" 
         min="1"
-        @blur="setNewSettings({allDepositsAmount: +settings.allDepositsAmount})">
+        @blur="setNewSettings({allDepositsForWithdrawal: +settings.allDepositsForWithdrawal})">
     </div>
   </div>
 </template>
@@ -35,12 +35,8 @@ export default {
 
   computed: {
     settings () {
-      return this.$store.state.admin.settings[0]
+      return this.$store.state.settings.settings
     }
-  },
-
-  mounted () {
-    this.$store.dispatch('admin/GET_PLATFORM_SETTINGS')
   },
 
   methods: {

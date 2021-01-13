@@ -36,9 +36,9 @@
                       Недостаточно средств на балансе
                     </span>
                     <span 
-                      v-if="errMinLength"
+                      v-if="errength"
                       class="error">
-                      min: {{ this.minLengthWithdrawal }}
+                      min: {{ this.engthWithdrawal }}
                     </span>
                 </div>
                 <div 
@@ -135,7 +135,7 @@ export default {
     card: null,
     amount: null,
     errBalance: false,
-    errMinLength: false,
+    errength: false,
     paymentTypes: [
       {
         name: 'Card',
@@ -157,8 +157,8 @@ export default {
   }),
 
   computed: {
-    minLengthWithdrawal () {
-      return this.$store.state.withdrawal.minLengthWithdrawal
+    engthWithdrawal () {
+      return this.$store.state.settings.settings.minAmount
     },
     toTrade () {
       return '< Трейдить'
@@ -180,16 +180,12 @@ export default {
     }
   },
 
-  mounted () {
-    this.$store.dispatch('withdrawal/GET_MIN_LENGTH_NUMBER')
-  },
-
   methods: {
     createRequest () {
-      if (this.amount < this.minLengthWithdrawal) {
-        this.errMinLength = true
+      if (this.amount < this.engthWithdrawal) {
+        this.errength = true
         setTimeout (() => {
-          this.errMinLength = false
+          this.errength = false
         }, 2000)
         return 
       }
