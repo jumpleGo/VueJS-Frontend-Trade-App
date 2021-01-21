@@ -1,16 +1,27 @@
 import axios from 'axios'
 import { MDeal } from '@/api/models/MDeal' 
 const state = () => ({
-  deals: []
+  deals: [],
+  isDealOpen: false,
+  currentDealPrice: 0
 })
 
 const getters = {
-  deals: state => state.deals
+  deals: state => state.deals,
+  isNextDealControlled: state => state.deals.slice(1,5).filter(deal => deal.status === 'WIN').length >= 3
 }
 
 const mutations = {
-  ADD_DEAL: (state, deal) => state.deals.push(deal),
-  SET_DEALS: (state, deals) => state.deals = deals.reverse(),
+  ADD_DEAL: (state, {deal, currentDealPrice}) => {
+    state.deals.unshift(deal),
+    state.isDealOpen = true,
+    state.currentDealPrice = currentDealPrice
+  },
+  END_DEAL: (state) => {
+    state.isDealOpen = false,
+    state.currentDealPrice = 0
+  },
+  SET_DEALS: (state, deals) => state.deals = deals,
   UPDATE_DEAL: (state, {deal, status}) => {
     let currentDeal = state.deals.find(d => d.id === deal.id)
     currentDeal.status = status
@@ -27,7 +38,7 @@ const actions = {
         data: deal
       })
       if (result.status === 200) {
-        context.commit('ADD_DEAL', new MDeal(result.data))
+        context.commit('ADD_DEAL', {deal: new MDeal(result.data), currentDealPrice: deal.currentPrice})
       }
     } catch (err) {
       console.log(err)
@@ -56,7 +67,10 @@ const actions = {
     try {
       const status = await context.dispatch('UPDATE_DEAL_STATUS', {deal, price})
 
+      context.dispatch('trade/CLOSE_SOCKET_CONTROL_DEAL', {}, {root: true})
       context.commit('UPDATE_DEAL', {deal, status})
+      context.commit('END_DEAL')
+
       await axios({
         method: 'post',
         url: `${process.env.VUE_APP_SERVER_URL_API}/updateDeal`,

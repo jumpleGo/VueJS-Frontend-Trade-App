@@ -1,8 +1,8 @@
 <script>
 import { Candlestick } from 'vue-chartjs-financial';
 import zoom from 'chartjs-plugin-zoom';
-import * as ChartAnnotation from 'chartjs-plugin-annotation';
 import 'chartjs-adapter-moment';
+import "chartjs-plugin-annotation";
 
 export default {
   name: 'Candlestick',
@@ -13,6 +13,9 @@ export default {
     },
     lastCandle () {
       return this.$store.getters['trade/lastCandle']
+    },
+    firstChartData () {
+      return this.candleData.datasets[0].data[0]
     },
     pair () {
       return this.$store.state.trade.pair
@@ -40,17 +43,34 @@ export default {
               maxTicksLimit: 5
             },
           }],
+          yAxes: [{
+            id: 'y'
+          }],
+          annotation: {
+           
+            drawTime: 'afterDatasetsDraw', // (default)
+            dblClickSpeed: 350, // ms (default)
+            annotations: [{
+              drawTime: 'afterDraw', // overrides annotation.drawTime if set
+              display: true,
+              type: 'line',
+              scaleID: 'y',
+              value: '36500',
+              borderColor: 'red',
+              borderWidth: 2,
+            }]
+          },
         },
         plugins: {
           zoom: {
             pan: {
               enabled: true,
-              mode: 'xy',
+              mode: 'x'
             },
             zoom: {
               enabled: true,
               mode: 'x',
-              speed: 0.1,
+              speed: 0.08,
               threshold: 2,
               sensitivity: 3,
             }
@@ -89,11 +109,6 @@ export default {
 
   mounted () {
     this.addPlugin(zoom),
-    this.addPlugin({
-      id: 'annotation',
-      ...ChartAnnotation
-    })
-
     this.renderChart(this.candleData, this.options);
     this._data._chart.$zoom._originalOptions.x = {}
     this.$data._chart.update()

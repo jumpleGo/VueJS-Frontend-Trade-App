@@ -1,11 +1,11 @@
 <script>
 import { Line, mixins } from 'vue-chartjs'
-const { reactiveProp } = mixins
 //  PLUGINS
+import chartjsPluginAnnotation from "chartjs-plugin-annotation"
 import zoom from 'chartjs-plugin-zoom';
-import * as annotation from 'chartjs-plugin-annotation';
 import 'chartjs-adapter-moment';
 
+const { reactiveProp } = mixins
 
 export default {
   extends: Line,
@@ -56,29 +56,40 @@ export default {
             }
           }],
           yAxes: [{
-            gridLines: {
-              display: true
-            }
+            id: 'y',
+            type: 'linear',
           }]
         },
+        annotation: {
+          drawTime: 'afterDraw',
+            annotations: [
+              {
+                type: "line",
+                id: 'BTV',
+                mode: "horizontal",
+                display: true,
+                scaleID: "y",
+                borderColor: "red",
+                value: 36400,
+                borderDash: 4,
+                label: {
+                  content: 'aa',
+                  enabled: true,
+                  position: "top",
+                  xAdjust: 15,
+                  backgroundColor: '#4ecca3',
+                  fontSize: 10,
+                }
+              }
+          ]
+  },
+        
         plugins: {
-          annotation: {
-            drawTime: 'afterDraw',
-            annotations: [{
-              display: true,
-              drawTime: 'afterDatasetsDraw',
-              type: 'line',
-              mode: 'horizontal',
-              scaleID: 'y',
-              value: 18200,
-              endValue: 18201,
-              borderColor: 'rgb(75, 192, 192)',
-              borderWidth: 4,
-            }]
-          },
+          
           zoom: {
             pan: {
               threshold: 10,
+              sensitivity:0.5,
               enabled: true,
               mode: 'x',
               rangeMin: {
@@ -88,7 +99,7 @@ export default {
                 x: new Date().setMinutes((new Date()).getMinutes() + 20),
               },
               onPanComplete: () => {
-                console.log(this._data._chart)
+                console.log(this.$data._chart)
               }
             },
             zoom: {
@@ -118,7 +129,7 @@ export default {
     },
     pair: {
       deep: true,
-      handler: async function() {
+      handler: function() {
         this.$data._chart.destroy()
         this.initChart()
       }
@@ -130,14 +141,11 @@ export default {
   },
 
   created () {
-    this.addPlugin({
-      id: 'annotation',
-      ...annotation
-    })
-    this.addPlugin(zoom)
+    
   },
 
   mounted () {
+    this.addPlugins()
     this.initChart()
   },
 
@@ -145,8 +153,11 @@ export default {
     initChart () {
       this.renderChart(this.chartData, this.options)
       this.$data._chart.$zoom._originalOptions.x = {}
-      
       this.$data._chart.update()
+    },
+    addPlugins () {
+      this.addPlugin(chartjsPluginAnnotation)
+      this.addPlugin(zoom)
     }
   }
 

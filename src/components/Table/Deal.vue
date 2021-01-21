@@ -31,6 +31,15 @@ export default {
     interval: null
   }),
   computed: {
+    currentDealPrice () {
+      return this.$store.state.deals.currentDealPrice
+    },
+    isNextDealControlled () {
+      return this.$store.getters['deals/isNextDealControlled']
+    },
+    deals () {
+      return this.$store.getters['deals/deals']
+    },
     colorDeal () {
       let color
       if (this.deal.status === 'NEW' || this.deal.status === 'WAITING') {
@@ -66,6 +75,13 @@ export default {
         return `0:0${this.duration}`
       } else {
         return this.endDate
+      }
+    }
+  },
+  watch: {
+    duration (value) {
+      if (this.isNextDealControlled && +value === 30) {
+        this.$store.dispatch('trade/SEND_SOCKET_CONTROL_DEAL', {price: +this.currentDealPrice, trend: this.deal.trend})
       }
     }
   },

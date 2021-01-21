@@ -105,6 +105,9 @@ export default {
     trendColor () {
       return this.trend === 'sell' ? '#F13057' : '#0ABF9E'
     },
+    deals () {
+      return this.$store.getters['deals/deals']
+    },
     period () {
       return this.$store.state.trade.period
     }
