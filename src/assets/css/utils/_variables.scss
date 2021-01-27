@@ -1,0 +1,73 @@
+/* Device = Most of the Smartphones Mobiles (Portrait) */
+$screen-xxs-min: 320px;
+$screen-xxs-max: 480px;
+
+/* Device = Low Resolution Tablets, Mobiles (Landscape) */
+$screen-xs-min: 481px;
+$screen-xs-max: 767px;
+
+/* Device = Tablets, Ipads (portrait) */
+$screen-sm-min: 768px;
+$screen-sm-max: 1024px;
+
+/* Device = Laptops, Desktops */
+$screen-md-min: 1025px;
+$screen-md-max: 1280px;
+
+/* Device = Desktops */
+$screen-lg-min: 1281px;
+$screen-lg-max: 1440px;
+
+/* Higher Resolution Screens */
+$screen-xlg-min: 1441px;
+$screen-xlg-max: 2560px;
+
+$font-family-playfair: 'Playfair Display', serif;
+
+$font-weight-thin:          100;
+$font-weight-exlight:       200;
+$font-weight-light:         300;
+$font-weight-regular:       400;
+$font-weight-medium:        500;
+$font-weight-semibold:      600;
+$font-weight-bold:          700;
+$font-weight-exbold:        800;
+$font-weight-black:         900;
+
+// Colors
+$color-white: #fff;
+$color-black: #000;
+$color-red: #FF3333;
+$color-gray: #F2F4F7;
+$color-dark-gray: #313131;
+
+$clear: transparent;
+
+// Border
+$border-color: #ccc;
+
+// Body-text
+$text-color: #06213B;
+
+// Animation
+$transition: all .3s ease;
+
+// Shadow
+$box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.5);
+
+// Font family
+$font-default: 'Roboto', sans-serif;
+
+// Font size
+$font-size: 14px;
+
+// Container's maximum width
+$max-width: 1280px !default;
+
+// Colors
+$color-white: #fff;
+$color-black: #000;
+$color-orange: #F9930F;
+$color-blue: #21BAFA;
+$color-blue-dark: #114269;
+$clear: transparent;

@@ -1,287 +1,321 @@
 <template>
-  <div>
-    <nav class="navbar navbar-expand-lg navbar-light navbar-floating">
-      <div class="container">
-        <a class="navbar-brand" href="#">
-          <img src="@/assets/favicon.png" alt="" width="40" />
-        </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarToggler"
-          aria-controls="navbarToggler"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
+    <div>
+        <Header/>
+        <section class="main">
+            <div class="container">
+                <div class="main-wrap">
+                    <h1 class="main__title">
+                        Торгуйте с уверенностью вместе с Corex Brokers
+                    </h1>
+                    <div class="main__sub-title">
+                        Откройте для себя возможности
+                        торговой платформы Corex Brokers!
+                    </div>
+                    <div class="main__sub-title">
+                        Живые котировки и инструменты со всех
+                        ведущих бирж.
+                    </div>
 
-        <div class="collapse navbar-collapse">
-          <div class="my-2 my-lg-0">
-            <router-link 
-              class="btn btn-dark rounded-pill"
-              to="registration">
-              Registration
-            </router-link>
-          </div>
-          <div 
-            class="my-2 my-lg-0">
-            <router-link 
-              class="btn btn-dark rounded-pill"
-              to="login">
-              Login
-            </router-link>
-          </div>
-        </div>
-      </div>
-    </nav>
-
-    <div
-      class="page-hero-section bg-image hero-home-1"
-      style="background-image: url(@/assets/img/bg_hero_1.svg)"
-    >
-      <div class="hero-caption pt-5">
-        <div class="container h-100">
-          <div class="row align-items-center h-100">
-            <div class="col-lg-6 wow fadeInUp">
-              <div class="badge mb-2">
-                <span class="icon mr-1"><span class="mai-globe"></span></span>
-                #2 Editor Choice App of 2020
-              </div>
-              <h1 class="mb-4">Manage your Finance easier</h1>
-              <p class="mb-4">
-                Mobster has features to view and manage <br />
-                our finances, such as transfer, and statistics.
-              </p>
-              <a href="#" class="btn btn-primary rounded-pill">Get App Now</a>
-            </div>
-            <div class="col-lg-6 d-none d-lg-block wow zoomIn">
-              <div class="img-place mobile-preview shadow floating-animate">
-                <img src="../assets/img/app_preview_1.png" alt="" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Clients -->
-    <div class="page-section mt-5">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-6 col-lg-3 py-3 wow zoomIn">
-            <div class="img-place client-img">
-              <img src="../assets/img/clients/alter_sport.png" alt="" />
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-3 py-3 wow zoomIn">
-            <div class="img-place client-img">
-              <img src="../assets/img/clients/cleaning_service.png" alt="" />
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-3 py-3 wow zoomIn">
-            <div class="img-place client-img">
-              <img src="../assets/img/clients/creative_photo.png" alt="" />
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-3 py-3 wow zoomIn">
-            <div class="img-place client-img">
-              <img src="../assets/img/clients/global_tv.png" alt="" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- End clients -->
-
-    <div
-      class="position-realive bg-image"
-      style="background-image: url(../assets/img/pattern_1.svg)"
-    >
-      <div class="page-section">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-5 py-3">
-              <div class="img-place mobile-preview shadow wow zoomIn">
-                <img src="../assets/img/app_preview_2.png" alt="" />
-              </div>
-            </div>
-            <div class="col-lg-6 py-3 mt-lg-5">
-              <div class="iconic-list">
-                <div class="iconic-item wow fadeInUp">
-                  <div
-                    class="iconic-md iconic-text bg-warning fg-white rounded-circle"
-                  >
-                    <span class="mai-cube"></span>
-                  </div>
-                  <div class="iconic-content">
-                    <h5>Powerful Features</h5>
-                    <p class="fs-small">
-                      Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                      sed diam nonumy eirmod tempor invidunt ut labore et dolore
-                    </p>
-                  </div>
+                    <router-link class="main__btn" to="login">Открыть счет</router-link>
                 </div>
-                <div class="iconic-item wow fadeInUp">
-                  <div
-                    class="iconic-md iconic-text bg-info fg-white rounded-circle"
-                  >
-                    <span class="mai-shield"></span>
-                  </div>
-                  <div class="iconic-content">
-                    <h5>Fully Secured</h5>
-                    <p class="fs-small">
-                      Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                      sed diam nonumy eirmod tempor invidunt ut labore et dolore
-                    </p>
-                  </div>
+            </div>
+        </section>
+
+        <section class="why">
+            <div class="container">
+                <h2 class="why__title">
+                    Почему торговать с Corex Brokers?
+                </h2>
+                <div class="why__items">
+                    <div class="why__item">
+                        <div class="why__item-img">
+                            <img src="@/assets/img/client/why_1.png" alt="">
+                        </div>
+                        <div class="why__item-title">Доступ к глобальному рынку</div>
+                        <div class="why__item-desc">
+                            Торгуйте более чем 50 инструментами:
+                            валютные операции, CFD, акции,
+                            опционы, ETF, сырьевые товары,
+                            фьючерсы, облигации и взаимные фонды.
+                        </div>
+                    </div>
+                    <div class="why__item">
+                        <div class="why__item-img">
+                            <img src="@/assets/img/client/why_2.png" alt="">
+                        </div>
+                        <div class="why__item-title">Мощные платформы</div>
+                        <div class="why__item-desc">
+                            Используйте обе наши платформы,
+                            отмеченную наградами SaxoTraderGO
+                            и профессиональную SaxoTraderPRO,
+                            c одного счета.
+                        </div>
+                    </div>
+                    <div class="why__item">
+                        <div class="why__item-img">
+                            <img src="@/assets/img/client/why_3.png" alt="">
+                        </div>
+                        <div class="why__item-title">Мин. депозит - $30</div>
+                        <div class="why__item-desc">
+                            Воспользуйтесь лучшим порогом
+                            стоимости входа на рынок, а также
+                            более узкими спредами и более
+                            низкими комиссиями при переходе
+                            на более высокий уровень.
+                        </div>
+                    </div>
+                    <div class="why__item">
+                        <div class="why__item-img">
+                            <img src="@/assets/img/client/why_3.png" alt="">
+                        </div>
+                        <div class="why__item-title">Экспертная поддержка</div>
+                        <div class="why__item-desc">
+                            Наша лучшая в отрасли цифровая
+                            поддержка является стандартом
+                            для всех наших клиентов, а на
+                            VIP-уровне доступно еще лучшее
+                            персонализированное обслуживание.
+                        </div>
+                    </div>
+
                 </div>
-                <div class="iconic-item wow fadeInUp">
-                  <div
-                    class="iconic-md iconic-text bg-indigo fg-white rounded-circle"
-                  >
-                    <span class="mai-desktop-outline"></span>
-                  </div>
-                  <div class="iconic-content">
-                    <h5>Easy Monitoring</h5>
-                    <p class="fs-small">
-                      Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                      sed diam nonumy eirmod tempor invidunt ut labore et dolore
-                    </p>
-                  </div>
+            </div>
+        </section>
+
+        <section class="create-acc">
+            <div class="container">
+                <h2 class="create-acc__title">
+                    Готовы получить бесплатный доступ к миру инвестиций?
+                </h2>
+                <h3 class="create-acc__sub-title">Создайте аккаунт, чтобы начать пользоваться платформой</h3>
+
+                <div class="form-feedback">
+                    <span class="form-feedback-bg"></span>
+
+                    <form @submit.prevent class="form-feedback__wrap-inputs">
+                        <div class="form-feedback__title">
+                            Регистрация в Corex Brokers
+                        </div>
+
+                        <div class="form-feedback__input">
+                            <label for="i">Имя</label>
+                            <input id="i" v-model="name" value="" type="text" name="name" placeholder="Имя" required/>
+                            <span v-if="$v.name.$invalid" class="error--text">Обязательное поле</span>
+                        </div>
+
+                        <div class="form-feedback__input">
+                            <label>Email</label>
+                            <input v-model="email" type="email" placeholder="Email" required/>
+                            <span v-if="!email" class="error--text">Обязательное поле</span>
+                            <span v-if="email && $v.email.$invalid" class="error--text">Неверный тип почты</span>
+                        </div>
+
+                        <div class="form-feedback__input">
+                            <label>Пароль</label>
+                            <input v-model="password" type="password" placeholder="Пароль" required>
+                            <span v-if="!password" class="error--text">Обязательное поле</span>
+                            <span v-if="password && !$v.password.minLength" class="error--text">Минимальное количество символов 5</span>
+                        </div>
+                        <span class="error--text" v-if="error">Пользователь с таким Email уже Зарегистрирован</span>
+
+                        <div class="form-feedback__checkbox">
+                            <input id="terms" v-model="isChecked" type="checkbox" name="agree" value="1" required checked/>
+                            <label for="terms">Я согласен(а) с условиями <a href="/<?=$url[0]?>/terms" target="_blank">Пользования
+                                веб-сайтом</a></label>
+                            <span v-if="!isChecked" class="error--text">Необходимо согласиться с условиями</span>
+                        </div>
+
+                        <button :disabled="$v.$invalid" type="button" class="form-feedback__btn-reg" @click="submit">
+                            Зарегистрироваться
+                        </button>
+
+                        <div class="register-link m-t-15 text-center">
+                            <p>Уже есть аккаунт ?
+                                <router-link to="login">Войти</router-link>
+                            </p>
+                        </div>
+                    </form>
                 </div>
-              </div>
             </div>
-          </div>
+        </section>
+
+        <section class="category">
+            <div class="container">
+                <h2 class="category__title">Категории наших счетов</h2>
+                <div class="category__sub-title">Торгуйте больше, рискуйте меньше и пользуйтесь лучшим обслуживанием
+                </div>
+
+                <div class="category__card-wrap">
+                    <div class="category__card">
+                        <div class="category__card-title">Демо-счет</div>
+                        <ul class="category__card-list">
+                            <li class="category__card-item">Активируется без
+                                пополнения счета
+                            </li>
+                            <li class="category__card-item">$1000 на тесты ваших
+                                стратегий
+                            </li>
+                            <li class="category__card-item">Техническая и торговая
+                                поддержка, доступная
+                                в режиме 24/7
+                            </li>
+                            <li class="category__card-item category__card-item--disabled">Торговля на реальные
+                                средства
+                            </li>
+                            <li class="category__card-item category__card-item--disabled">Приоритетная клиентская
+                                поддержка
+                            </li>
+                            <li class="category__card-item category__card-item--disabled">Личный менеджер</li>
+                        </ul>
+                        <router-link class="category__card-btn" to="login">Открыть счет</router-link>
+                    </div>
+                    <div class="category__card">
+                        <div class="category__card-title">Демо-счет</div>
+                        <ul class="category__card-list">
+                            <li class="category__card-item">Активируется без
+                                пополнения счета
+                            </li>
+                            <li class="category__card-item">$1000 на тесты ваших
+                                стратегий
+                            </li>
+                            <li class="category__card-item">Техническая и торговая
+                                поддержка, доступная
+                                в режиме 24/7
+                            </li>
+                            <li class="category__card-item">Торговля на реальные
+                                средства
+                            </li>
+                            <li class="category__card-item category__card-item--disabled">Приоритетная клиентская
+                                поддержка
+                            </li>
+                            <li class="category__card-item category__card-item--disabled">Личный менеджер</li>
+                        </ul>
+                        <router-link class="category__card-btn" to="login">Открыть счет</router-link>
+                    </div>
+                    <div class="category__card">
+                        <div class="category__card-title">Демо-счет</div>
+                        <ul class="category__card-list">
+                            <li class="category__card-item">Активируется без
+                                пополнения счета
+                            </li>
+                            <li class="category__card-item">$1000 на тесты ваших
+                                стратегий
+                            </li>
+                            <li class="category__card-item">Техническая и торговая
+                                поддержка, доступная
+                                в режиме 24/7
+                            </li>
+                            <li class="category__card-item">Торговля на реальные
+                                средства
+                            </li>
+                            <li class="category__card-item">Приоритетная клиентская
+                                поддержка
+                            </li>
+                            <li class="category__card-item">Личный менеджер</li>
+                        </ul>
+                        <router-link class="category__card-btn" to="login">Открыть счет</router-link>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="support">
+            <div class="container">
+                <span class="container-bg"></span>
+                <div class="support-container">
+                    <h2 class="support__title">Экспертная поддержка</h2>
+                    <div class="support__sub-title">
+                        Независимо от того, являетесь ли Вы долгосрочным
+                        инвестором или активным трейдером, вы получите
+                        высококлассную профессиональную поддержку.
+                    </div>
+                    <ul class="support__desc">
+                        <li>
+                            <p>Интегрированная цифровая поддержка</p>
+                            <p>Вы можете самостоятельно ознакомиться с множеством полезных
+                                ресурсов в нашем Центре поддержки клиентов или в службе
+                                поддержки, интегрированной в платформу.
+                            </p>
+                        </li>
+                        <li>
+                            <p>Персональная поддержка</p>
+                            <p>Получайте экспертную поддержку по техническим вопросам и
+                                обслуживанию счета в любое время в часы работы рынков. Наши
+                                эксперты работают 24/7, кажды является специалистом по платформе
+                                Corex Brokers и обладает глубокими знаниями о местном рынке.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
+
+        <Footer/>
     </div>
-
-    <div class="page-section bg-dark fg-white">
-      <div class="container">
-        <h1 class="text-center">Why Choose Mobster</h1>
-
-        <div class="row justify-content-center mt-5">
-          <div class="col-md-6 col-lg-3 py-3">
-            <div
-              class="card card-body border-0 bg-transparent text-center wow zoomIn"
-            >
-              <div class="mb-3">
-                <img src="../assets/img/icons/rocket.svg" alt="" />
-              </div>
-              <p class="fs-large">Very Fast</p>
-              <p class="fs-small fg-grey">
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-              </p>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 py-3">
-            <div
-              class="card card-body border-0 bg-transparent text-center wow zoomIn"
-              data-wow-delay="200ms"
-            >
-              <div class="mb-3">
-                <img src="../assets/img/icons/testimony.svg" alt="" />
-              </div>
-              <p class="fs-large">Happy Client</p>
-              <p class="fs-small fg-grey">
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-              </p>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 py-3">
-            <div
-              class="card card-body border-0 bg-transparent text-center wow zoomIn"
-              data-wow-delay="400ms"
-            >
-              <div class="mb-3">
-                <img src="../assets/img/icons/promotion.svg" alt="" />
-              </div>
-              <p class="fs-large">Free Ads</p>
-              <p class="fs-small fg-grey">
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-              </p>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 py-3">
-            <div
-              class="card card-body border-0 bg-transparent text-center wow zoomIn"
-              data-wow-delay="600ms"
-            >
-              <div class="mb-3">
-                <img src="../assets/img/icons/coins.svg" alt="" />
-              </div>
-              <p class="fs-large">Save Money</p>
-              <p class="fs-small fg-grey">
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-              </p>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 py-3">
-            <div
-              class="card card-body border-0 bg-transparent text-center wow zoomIn"
-              data-wow-delay="800ms"
-            >
-              <div class="mb-3">
-                <img src="../assets/img/icons/support.svg" alt="" />
-              </div>
-              <p class="fs-large">24/7 Support</p>
-              <p class="fs-small fg-grey">
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-              </p>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 py-3">
-            <div
-              class="card card-body border-0 bg-transparent text-center wow zoomIn"
-              data-wow-delay="1000ms"
-            >
-              <div class="mb-3">
-                <img src="../assets/img/icons/laptop.svg" alt="" />
-              </div>
-              <p class="fs-large">Full Features</p>
-              <p class="fs-small fg-grey">
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div
-      class="page-section bg-image bg-image-overlay-dark"
-      style="background-image: url(../assets/img/bg_testimonials.jpg)"
-    >
-      <div class="container fg-white">
-        <div class="row">
-          <div class="col-md-8 col-lg-6 offset-lg-1 wow fadeInUp">
-            <h2 class="mb-5 fg-white fw-normal">Customer Stories</h2>
-            <p class="fs-large font-italic">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Mollitia
-              voluptates facere explicabo! Rerum necessitatibus cum qui
-              veritatis reprehenderit, neque sapiente consequatur atque eaque
-              molestias, est, quod totam quo laudantium ratione.
-            </p>
-            <p class="fs-large fg-grey fw-medium mb-5">John Doe, UI Designer</p>
-
-            <a href="#" class="btn btn-outline-light rounded-pill"
-              >Read Stories <span class="mai-chevron-forward"></span
-            ></a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </template>
+
+<script>
+import {mapState} from 'vuex'
+import {required, email, minLength} from 'vuelidate/lib/validators'
+
+import Header from "@/views/partials/header";
+import Footer from "@/views/partials/footer";
+
+export default {
+    name: 'PageMain',
+
+    data() {
+        return {
+            email: '',
+            password: '',
+            name: '',
+            isChecked: true
+        };
+    },
+
+    components: {
+        Header,
+        Footer,
+    },
+
+    computed: {
+        ...mapState('auth', {
+            error: state => state.registrationError
+        })
+    },
+
+    validations: {
+        email: {
+            required,
+            email
+        },
+        name: {
+            required
+        },
+        isChecked: {
+            required
+        },
+        password: {
+            required,
+            minLength: minLength(5)
+        }
+    },
+
+    beforeDestroy() {
+        this.$store.commit('auth/SET_REGISTER_ERROR', null)
+    },
+
+    methods: {
+        submit() {
+            const {email, name, password} = this
+            const {ref} = this.$route.query
+            this.$store.dispatch('auth/REGISTER', {email, name, password, ref})
+        },
+    },
+}
+</script>
 
 <style scoped>
 @import "./../assets/css/bootstrap.css";
 @import "./../assets/css/maicons.css";
 @import "./../assets/css/mobster.css";
-</style>
-<style lang="sass" scoped>
-  .rounded-pill
-    margin-left: 20px
 </style>

@@ -1,0 +1,21 @@
+.btn {
+    width: 224px;
+    font-size: 16px;
+    text-align: center;
+    border: 0;
+    border-radius: 10px;
+    color: $color-white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+
+    &--blue {
+        background: #21BAFA;
+
+        &:hover {
+            background: darken($color-blue, 15%);
+            transition: all 0.3s ease 0s;
+        }
+    }
+}

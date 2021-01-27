@@ -1,9 +1,9 @@
 <template>
-  <div 
+  <div
     v-if="drawChart"
     class="chart">
     <!-- <div>
-      <span 
+      <span
         v-for="(p, index) in periods"
         :key="`${index}--p`"
         class="period-chart"
@@ -11,18 +11,18 @@
           {{p}}m
         </span>
     </div> -->
-    <base-chart 
+    <base-chart
       v-if="chartType === 'line'"
       class="line-chart"
       :height="200"
       :chart-data="chartData" />
-    <candlestick 
-      v-if="chartType === 'candle'" 
+    <candlestick
+      v-if="chartType === 'candle'"
       :height="200"
       class="candle-chart" />
   </div>
-  <div 
-    v-else 
+  <div
+    v-else
     class="loader">
     Loading...
   </div>
@@ -76,9 +76,9 @@ export default {
   created () {
     this.$store.commit('trade/CLEAR_OLD_DATE')
   },
-  mounted () {
-    this.getChartsData()
-  },
+  // mounted () {
+  //   this.getChartsData()
+  // },
   methods: {
     async initSocket () {
       await this.$store.dispatch('trade/CONNECT_SOCKET')
