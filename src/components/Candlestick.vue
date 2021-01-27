@@ -55,7 +55,7 @@ export default {
               display: true,
               type: 'line',
               scaleID: 'y',
-              value: '36500',
+              value: '29500',
               borderColor: 'red',
               borderWidth: 2,
             }]

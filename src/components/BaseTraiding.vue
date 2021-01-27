@@ -62,7 +62,7 @@ export default {
         this.$store.dispatch('trade/SEND_SOCKET_MESSAGE_TRADE').then(async () => {
           this.$store.commit('trade/SET_DRAW_CHART', false)
           this.$store.commit('trade/CLEAR_OLD_DATE')
-          await this.getChartsData()
+          this.getChartsData()
         })
       }
     }

@@ -72,9 +72,7 @@ const mutations = {
     state.candleData.datasets[0].data.push(candle)
   },
   SET_CHART_DATA: (state, data) => {
-    console.log(new Date(data.unix))
     let priceDataArr = state.chartData.datasets[0].data
-
     priceDataArr.push({
       x: new Date(data.unix),
       y: +data.price
@@ -178,7 +176,10 @@ const actions = {
     await context.dispatch('SEND_SOCKET_MESSAGE_TRADE')
 
     socket.on('MESSAGE_TRADE', (data) => {
-      context.commit('SET_CHART_DATA', data)
+      if (context.state.candleData.datasets[0].data.length) {
+        context.commit('SET_CHART_DATA', data)
+        
+      }
       context.commit('SET_PRICE_INFO', data)
     });
     socket.on('MESSAGE_CANDLE', (data) => {

@@ -13,7 +13,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr @click="toggleList">
+                  <tr @click="toggleList" :class="[{'disabled-button': isDealOpen}]">
                     <td class="pair">
                       {{ `${currentPair.base}/${currentPair.quote}` }}
                       <img :class="['arrow', {'rotated': showAllPairs}]" src="/images/icons/back.svg">
@@ -184,6 +184,8 @@ tbody tr td
   border-radius: 3px
 .card-body
   padding: 0px !important
+.disabled-button
+  cursor: not-allowed !important
 .last-deals
   &-header
     font-size: 14px

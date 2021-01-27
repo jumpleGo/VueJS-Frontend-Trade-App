@@ -3,7 +3,8 @@ import { MDeal } from '@/api/models/MDeal'
 const state = () => ({
   deals: [],
   isDealOpen: false,
-  currentDealPrice: 0
+  currentDealPrice: 0,
+  annotations: []
 })
 
 const getters = {
@@ -15,11 +16,38 @@ const mutations = {
   ADD_DEAL: (state, {deal, currentDealPrice}) => {
     state.deals.unshift(deal),
     state.isDealOpen = true,
+    state.annotations.push({
+      type: "line",
+      mode: "horizontal",
+      display: true,
+      scaleID: "y",
+      borderColor: "red",
+      value: +currentDealPrice,
+    })
+    state.annotations.push({
+      type: "line",
+      display: true,
+      scaleID: "x",
+      borderColor: "green",
+      borderDash: [2, 2],
+      borderDashOffset: 2,
+      value: new Date(deal.startDate),
+    })
+    state.annotations.push({
+      type: "line",
+      display: true,
+      scaleID: "x",
+      borderColor: "red",
+      borderDash: [2, 2],
+      borderDashOffset: 2,
+      value: new Date(deal.endDate),
+    })
     state.currentDealPrice = currentDealPrice
   },
   END_DEAL: (state) => {
     state.isDealOpen = false,
-    state.currentDealPrice = 0
+    state.currentDealPrice = 0,
+    state.annotations = []
   },
   SET_DEALS: (state, deals) => state.deals = deals,
   UPDATE_DEAL: (state, {deal, status}) => {
@@ -37,9 +65,7 @@ const actions = {
         headers: {'Content-Type': 'application/json'},
         data: deal
       })
-      if (result.status === 200) {
-        context.commit('ADD_DEAL', {deal: new MDeal(result.data), currentDealPrice: deal.currentPrice})
-      }
+      context.commit('ADD_DEAL', {deal: new MDeal(result.data), currentDealPrice: deal.currentPrice})
     } catch (err) {
       console.log(err)
     }
@@ -66,10 +92,9 @@ const actions = {
   CLOSE_DEAL: async (context, {deal, price}) => {
     try {
       const status = await context.dispatch('UPDATE_DEAL_STATUS', {deal, price})
-
+      context.commit('END_DEAL')
       context.dispatch('trade/CLOSE_SOCKET_CONTROL_DEAL', {}, {root: true})
       context.commit('UPDATE_DEAL', {deal, status})
-      context.commit('END_DEAL')
 
       await axios({
         method: 'post',

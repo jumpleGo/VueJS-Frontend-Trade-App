@@ -12,16 +12,7 @@ export default {
   name: 'BaseChart',
   mixins: [reactiveProp],
   computed: {
-    dataOfChart () {
-      return this.chartData.datasets[0].data
-    },
-    pair () {
-      return this.$store.state.trade.pair
-    },
-    firstChartData () {
-      return this.chartData.datasets[0].data[0]
-    },
-    options: function () {
+    options () {
       return {
         type: 'line',
         responsive: true,
@@ -29,6 +20,9 @@ export default {
           point:{
             radius: 0
           }
+        },
+        animation: {
+          duration: 0 // general animation time
         },
         tooltips: {
           enabled: false
@@ -59,33 +53,12 @@ export default {
             id: 'y',
             type: 'linear',
           }]
-        },
+        },     
         annotation: {
           drawTime: 'afterDraw',
-            annotations: [
-              {
-                type: "line",
-                id: 'BTV',
-                mode: "horizontal",
-                display: true,
-                scaleID: "y",
-                borderColor: "red",
-                value: 36400,
-                borderDash: 4,
-                label: {
-                  content: 'aa',
-                  enabled: true,
-                  position: "top",
-                  xAdjust: 15,
-                  backgroundColor: '#4ecca3',
-                  fontSize: 10,
-                }
-              }
-          ]
-  },
-        
+          annotations: []
+        },   
         plugins: {
-          
           zoom: {
             pan: {
               threshold: 10,
@@ -118,7 +91,19 @@ export default {
           }
         }
       }
-    }
+    },
+    annotations () {
+      return this.$store.state.deals.annotations
+    },
+    dataOfChart () {
+      return this.chartData.datasets[0].data
+    },
+    pair () {
+      return this.$store.state.trade.pair
+    },
+    firstChartData () {
+      return this.chartData.datasets[0].data[0]
+    },
   },
 
   watch: {
@@ -133,6 +118,17 @@ export default {
         this.$data._chart.destroy()
         this.initChart()
       }
+    },
+    annotations (val) {
+      this.$data._chart.update();
+      if (val.length) {
+        this.$data._chart.options.annotation.drawTime = "afterDraw";
+        this.$data._chart.options.annotation.annotations = val
+      } else {
+        this.$data._chart.options.annotation.drawTime = null;
+        this.$data._chart.options.annotation.annotations = []
+      }
+      this.$data._chart.update();
     }
   },
 
@@ -144,16 +140,22 @@ export default {
     
   },
 
-  mounted () {
-    this.addPlugins()
-    this.initChart()
+  async mounted () {
+    await this.addPlugins()
+    await this.initChart()
+    this.$nextTick(() => {
+      if (this.annotations.length) {
+        this.$data._chart.options.annotation.annotations = this.annotations
+        this.$data._chart.update() 
+      }
+    })
   },
 
   methods: {
     initChart () {
       this.renderChart(this.chartData, this.options)
       this.$data._chart.$zoom._originalOptions.x = {}
-      this.$data._chart.update()
+      this.$data._chart.update()     
     },
     addPlugins () {
       this.addPlugin(chartjsPluginAnnotation)
