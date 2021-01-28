@@ -1,0 +1,126 @@
+.popup {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: -1;
+    transition: opacity 0.3s ease 0s;
+
+    &-show {
+        display: block;
+        z-index: 0;
+        opacity: 1;
+        transition: opacity 0.3s ease 0s;
+    }
+
+    @media (max-width: 767px) {
+        position: fixed;
+    }
+}
+
+.contact-info {
+    display: flex;
+    background: #114269;
+    position: relative;
+    z-index: 5;
+    height: 100%;
+
+    nav {
+        padding: 250px 0 0 168px;
+        max-width: 635px;
+
+        a {
+            display: block;
+            font-weight: bold;
+            font-size: 30px;
+            color: $color-white;
+            margin-bottom: 45px;
+        }
+
+        a:hover {
+            color: $color-orange;
+        }
+    }
+
+    form {
+        padding: 250px 0 0 100px;
+        flex: 1;
+        background: #0F3D62;
+
+        .btn {
+            margin-top: 65px;
+        }
+    }
+
+    .contacts {
+        display: none;
+    }
+
+    @media (max-width: 767px) {
+        flex-direction: column;
+
+        nav {
+            padding: 80px 20px 30px;
+            max-width: 100%;
+
+            a {
+                font-size: 16px;
+                margin-bottom: 20px;
+            }
+        }
+
+        form {
+            display: none;
+        }
+
+        .contacts {
+            display: block;
+            background: #0f3d62;
+            padding: 30px 50px;
+            flex: 1;
+
+            p {
+                color: $color-white;
+                font-size: 10px;
+            }
+
+            a {
+                position: relative;
+                color: $color-white;
+                font-size: 16px;
+                display: block;
+            }
+
+            a.mail {
+                margin-bottom: 20px;
+
+                &:before {
+                    content: '';
+                    position: absolute;
+                    top: 3px;
+                    left: -27px;
+                    width: 23px;
+                    height: 18px;
+                    background: url('/img/icon/ic-mail-orange.png') no-repeat;
+                }
+            }
+
+            a.phone {
+                padding-right: 35px;
+                margin-bottom: 8px;
+
+                &:before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: -28px;
+                    width: 21px;
+                    height: 22px;
+                    background: url('/img/icon/ic-phone-orange.png') no-repeat;
+                }
+            }
+        }
+    }
+}

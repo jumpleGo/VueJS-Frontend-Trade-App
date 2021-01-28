@@ -26,7 +26,7 @@
                       <span v-if="password && !$v.password.minLength" class="error--text">Минимальное количество символов 5</span>
                     </div>
                     <span class="error--text" v-if="error">Пользователь с таким Email уже Зарегистрирован</span>
-                    <button 
+                    <button
                       :disabled="$v.$invalid"
                       class="btn btn-primary btn-flat m-b-30 m-t-30"
                       @click="submit">Зарегистрироваться</button>
@@ -50,7 +50,7 @@ export default {
   data: () => ({
     email: '',
     password: '',
-    name: ''
+    name: '',
   }),
 
   computed: {
