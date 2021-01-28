@@ -116,31 +116,6 @@ export default {
     checked: 'ADVCUSD',
     paysys: [
       {
-        img: 'qiwi_icon.png',
-        value: 'QWRUB',
-        id: 'qwrub',
-        text: 'Qiwi RUB'
-      },
-      {
-        img: 'advc_icon.png',
-        value: 'ADVCUSD',
-        id: 'advusd',
-        text: 'AdvCash USD'
-      },
-      {
-        img: 'advc_icon.png',
-        value: 'ADVCRUB',
-        id: 'advrub',
-        text: 'AdvCash RUB'
-      },
-      {
-        img: 'payeer_icon.png',
-        value: 'PRRUB',
-        id: 'prrub',
-        text: 'Payeer RUB'
-
-      },
-      {
         img: 'tether_icon.png',
         value: 'USDTERC',
         id: 'usdterc',
