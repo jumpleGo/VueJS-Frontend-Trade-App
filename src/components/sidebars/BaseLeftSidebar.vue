@@ -13,7 +13,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr @click="toggleList">
+                  <tr @click="toggleList" :class="[{'disabled-button': isDealOpen}]">
                     <td class="pair">
                       {{ `${currentPair.base}/${currentPair.quote}` }}
                       <img :class="['arrow', {'rotated': showAllPairs}]" src="/images/icons/back.svg">
@@ -80,11 +80,14 @@ export default {
     currentPair () {
       return this.$store.state.trade.pair
     },
+    isDealOpen () {
+      return this.$store.state.deals.isDealOpen
+    },
     deals () {
       return this.$store.getters['deals/deals']
     },
     lastFiveDeals () {
-      return this.deals.slice(Math.max(this.deals.length - 5, 1))
+      return this.deals.slice(0,5)
     },
   },
   mounted () {
@@ -93,7 +96,9 @@ export default {
 
   methods: {
     toggleList () {
-      this.showAllPairs = !this.showAllPairs
+      if (!this.isDealOpen) {
+        this.showAllPairs = !this.showAllPairs
+      }
     },
     choosePair (pair) {
       this.$store.commit('trade/SET_PAIR', pair)
@@ -179,6 +184,8 @@ tbody tr td
   border-radius: 3px
 .card-body
   padding: 0px !important
+.disabled-button
+  cursor: not-allowed !important
 .last-deals
   &-header
     font-size: 14px

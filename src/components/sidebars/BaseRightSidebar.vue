@@ -46,13 +46,13 @@
               </div>
             </form>
             <button 
-              :disabled="!amount"
+              :disabled="!amount || isDealOpen"
               class="btn btn-success btn-rounded btn-block btn-glow"
               @click="createDeal('high')">
               Выше
               </button>
             <button 
-              :disabled="!amount"
+              :disabled="!amount || isDealOpen"
               class="btn btn-danger btn-rounded btn-block btn-glow"
               @click="createDeal('low')">
               Ниже
@@ -105,9 +105,15 @@ export default {
     trendColor () {
       return this.trend === 'sell' ? '#F13057' : '#0ABF9E'
     },
+    deals () {
+      return this.$store.getters['deals/deals']
+    },
     period () {
       return this.$store.state.trade.period
-    }
+    },
+    isDealOpen () {
+      return this.$store.state.deals.isDealOpen
+    },
   },
 
   methods: {
@@ -199,4 +205,6 @@ button
   border: unset
 button:hover
   border: unset
+button:disabled
+  cursor: not-allowed
 </style>

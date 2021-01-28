@@ -1,27 +1,18 @@
 <script>
 import { Line, mixins } from 'vue-chartjs'
-const { reactiveProp } = mixins
 //  PLUGINS
+import chartjsPluginAnnotation from "chartjs-plugin-annotation"
 import zoom from 'chartjs-plugin-zoom';
-import * as annotation from 'chartjs-plugin-annotation';
 import 'chartjs-adapter-moment';
 
+const { reactiveProp } = mixins
 
 export default {
   extends: Line,
   name: 'BaseChart',
   mixins: [reactiveProp],
   computed: {
-    dataOfChart () {
-      return this.chartData.datasets[0].data
-    },
-    pair () {
-      return this.$store.state.trade.pair
-    },
-    firstChartData () {
-      return this.chartData.datasets[0].data[0]
-    },
-    options: function () {
+    options () {
       return {
         type: 'line',
         responsive: true,
@@ -29,6 +20,9 @@ export default {
           point:{
             radius: 0
           }
+        },
+        animation: {
+          duration: 0 // general animation time
         },
         tooltips: {
           enabled: false
@@ -56,29 +50,19 @@ export default {
             }
           }],
           yAxes: [{
-            gridLines: {
-              display: true
-            }
+            id: 'y',
+            type: 'linear',
           }]
-        },
+        },     
+        annotation: {
+          drawTime: 'afterDraw',
+          annotations: []
+        },   
         plugins: {
-          annotation: {
-            drawTime: 'afterDraw',
-            annotations: [{
-              display: true,
-              drawTime: 'afterDatasetsDraw',
-              type: 'line',
-              mode: 'horizontal',
-              scaleID: 'y',
-              value: 18200,
-              endValue: 18201,
-              borderColor: 'rgb(75, 192, 192)',
-              borderWidth: 4,
-            }]
-          },
           zoom: {
             pan: {
               threshold: 10,
+              sensitivity:0.5,
               enabled: true,
               mode: 'x',
               rangeMin: {
@@ -88,7 +72,7 @@ export default {
                 x: new Date().setMinutes((new Date()).getMinutes() + 20),
               },
               onPanComplete: () => {
-                console.log(this._data._chart)
+                console.log(this.$data._chart)
               }
             },
             zoom: {
@@ -107,7 +91,19 @@ export default {
           }
         }
       }
-    }
+    },
+    annotations () {
+      return this.$store.state.deals.annotations
+    },
+    dataOfChart () {
+      return this.chartData.datasets[0].data
+    },
+    pair () {
+      return this.$store.state.trade.pair
+    },
+    firstChartData () {
+      return this.chartData.datasets[0].data[0]
+    },
   },
 
   watch: {
@@ -118,10 +114,21 @@ export default {
     },
     pair: {
       deep: true,
-      handler: async function() {
+      handler: function() {
         this.$data._chart.destroy()
         this.initChart()
       }
+    },
+    annotations (val) {
+      this.$data._chart.update();
+      if (val.length) {
+        this.$data._chart.options.annotation.drawTime = "afterDraw";
+        this.$data._chart.options.annotation.annotations = val
+      } else {
+        this.$data._chart.options.annotation.drawTime = null;
+        this.$data._chart.options.annotation.annotations = []
+      }
+      this.$data._chart.update();
     }
   },
 
@@ -130,23 +137,29 @@ export default {
   },
 
   created () {
-    this.addPlugin({
-      id: 'annotation',
-      ...annotation
-    })
-    this.addPlugin(zoom)
+    
   },
 
-  mounted () {
-    this.initChart()
+  async mounted () {
+    await this.addPlugins()
+    await this.initChart()
+    this.$nextTick(() => {
+      if (this.annotations.length) {
+        this.$data._chart.options.annotation.annotations = this.annotations
+        this.$data._chart.update() 
+      }
+    })
   },
 
   methods: {
     initChart () {
       this.renderChart(this.chartData, this.options)
       this.$data._chart.$zoom._originalOptions.x = {}
-      
-      this.$data._chart.update()
+      this.$data._chart.update()     
+    },
+    addPlugins () {
+      this.addPlugin(chartjsPluginAnnotation)
+      this.addPlugin(zoom)
     }
   }
 

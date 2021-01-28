@@ -21,7 +21,7 @@
             <tbody>
               <Deal 
                 v-for="(deal, index) in deals"
-                :key="`${deal.pair}-${index}`"
+                :key="`${deal.pair}-${deal.status}-${deal.amount}`"
                 :index="index"
                 :deal="deal" />
             </tbody>
