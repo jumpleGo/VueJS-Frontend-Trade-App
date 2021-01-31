@@ -47,7 +47,7 @@ const mutations = {
   END_DEAL: (state) => {
     state.isDealOpen = false,
     state.currentDealPrice = 0,
-    state.annotations = []
+    state.annotations.splice(0, 3)
   },
   SET_DEALS: (state, deals) => state.deals = deals,
   UPDATE_DEAL: (state, {deal, status}) => {

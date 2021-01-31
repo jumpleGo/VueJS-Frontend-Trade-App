@@ -2,7 +2,8 @@
   <div
     v-if="drawChart"
     class="chart">
-    <!-- <div>
+    <div v-if="chartType === 'line'">
+      <span class="period-chart" @click="periodChart = 0">Сбросить</span>
       <span
         v-for="(p, index) in periods"
         :key="`${index}--p`"
@@ -10,11 +11,12 @@
         @click="periodChart = p">
           {{p}}m
         </span>
-    </div> -->
+    </div>
     <base-chart
       v-if="chartType === 'line'"
       class="line-chart"
       :height="200"
+      :period-chart="periodChart"
       :chart-data="chartData" />
     <candlestick
       v-if="chartType === 'candle'"

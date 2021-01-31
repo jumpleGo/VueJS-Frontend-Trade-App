@@ -10,6 +10,12 @@ const { reactiveProp } = mixins
 export default {
   extends: Line,
   name: 'BaseChart',
+  props: {
+    periodChart:{
+      type: Number,
+      default: 0
+    }
+  },
   mixins: [reactiveProp],
   computed: {
     options () {
@@ -71,8 +77,8 @@ export default {
               rangeMax: {
                 x: new Date().setMinutes((new Date()).getMinutes() + 20),
               },
-              onPanComplete: () => {
-                console.log(this.$data._chart)
+              onPanComplete: (t) => {
+                console.log(t)
               }
             },
             zoom: {
@@ -119,6 +125,9 @@ export default {
         this.initChart()
       }
     },
+    periodChart () {
+      this.renderChart(this.chartData, this.options)
+    },
     annotations (val) {
       this.$data._chart.update();
       if (val.length) {
@@ -146,6 +155,7 @@ export default {
     this.$nextTick(() => {
       if (this.annotations.length) {
         this.$data._chart.options.annotation.annotations = this.annotations
+        this.$data._chart.resetZoom()
         this.$data._chart.update() 
       }
     })

@@ -46,13 +46,13 @@
               </div>
             </form>
             <button 
-              :disabled="!amount || isDealOpen"
+              :disabled="!amount"
               class="btn btn-success btn-rounded btn-block btn-glow"
               @click="createDeal('high')">
               Выше
               </button>
             <button 
-              :disabled="!amount || isDealOpen"
+              :disabled="!amount"
               class="btn btn-danger btn-rounded btn-block btn-glow"
               @click="createDeal('low')">
               Ниже
