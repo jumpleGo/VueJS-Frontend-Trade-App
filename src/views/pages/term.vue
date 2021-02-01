@@ -78,7 +78,7 @@ import Footer from "@/views/partials/footer";
 import Header from "@/views/partials/header";
 
 export default {
-  name: 'PageAbout',
+  name: 'PageTerm',
   components: {Header, Footer}
 }
 </script>

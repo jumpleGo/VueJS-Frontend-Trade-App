@@ -16,7 +16,7 @@
                         ведущих бирж.
                     </div>
 
-                    <router-link class="main__btn" to="login">Открыть счет</router-link>
+                    <router-link class="main__btn" to="registration">Открыть счет</router-link>
                 </div>
             </div>
         </section>
@@ -31,7 +31,7 @@
                         <div class="why__item-img">
                             <img src="@/assets/img/client/why_1.png" alt="">
                         </div>
-                        <div class="why__item-title">Доступ к глобальному рынку</div>
+                        <div class="why__item-title">Торговля 24/7 в реальном времени с основными критовалютами доступна из любой точки мира</div>
                         <div class="why__item-desc">
                             Торгуйте более чем 50 инструментами:
                             валютные операции, CFD, акции,
@@ -115,13 +115,15 @@
                             <input v-model="password" type="password" placeholder="Пароль" required>
                             <span v-if="!password" class="error--text">Обязательное поле</span>
                             <span v-if="password && !$v.password.minLength" class="error--text">Минимальное количество символов 5</span>
+                            <span class="error--text" v-if="error">Пользователь с таким Email уже Зарегистрирован</span>
                         </div>
-                        <span class="error--text" v-if="error">Пользователь с таким Email уже Зарегистрирован</span>
+
 
                         <div class="form-feedback__checkbox">
                             <input id="terms" v-model="isChecked" type="checkbox" name="agree" value="1" required checked/>
-                            <label for="terms">Я согласен(а) с условиями <a href="/<?=$url[0]?>/terms" target="_blank">Пользования
-                                веб-сайтом</a></label>
+                            <label for="terms">Я согласен(а) с условиями <router-link to="term" target="_blank">Пользования
+                                веб-сайтом</router-link>
+                            </label>
                             <span v-if="!isChecked" class="error--text">Необходимо согласиться с условиями</span>
                         </div>
 
@@ -167,10 +169,10 @@
                             </li>
                             <li class="category__card-item category__card-item--disabled">Личный менеджер</li>
                         </ul>
-                        <router-link class="category__card-btn" to="login">Открыть счет</router-link>
+                        <router-link class="category__card-btn" to="registration">Открыть счет</router-link>
                     </div>
                     <div class="category__card">
-                        <div class="category__card-title">Демо-счет</div>
+                        <div class="category__card-title">Торговый счет</div>
                         <ul class="category__card-list">
                             <li class="category__card-item">Активируется без
                                 пополнения счета
@@ -190,10 +192,10 @@
                             </li>
                             <li class="category__card-item category__card-item--disabled">Личный менеджер</li>
                         </ul>
-                        <router-link class="category__card-btn" to="login">Открыть счет</router-link>
+                        <router-link class="category__card-btn" to="registration">Открыть счет</router-link>
                     </div>
                     <div class="category__card">
-                        <div class="category__card-title">Демо-счет</div>
+                        <div class="category__card-title">VIP счет</div>
                         <ul class="category__card-list">
                             <li class="category__card-item">Активируется без
                                 пополнения счета
@@ -213,7 +215,7 @@
                             </li>
                             <li class="category__card-item">Личный менеджер</li>
                         </ul>
-                        <router-link class="category__card-btn" to="login">Открыть счет</router-link>
+                        <router-link class="category__card-btn" to="registration">Открыть счет</router-link>
                     </div>
                 </div>
             </div>
@@ -306,6 +308,10 @@ export default {
 
     methods: {
         submit() {
+            if (!this.isChecked) {
+              return false;
+            }
+
             const {email, name, password} = this
             const {ref} = this.$route.query
             this.$store.dispatch('auth/REGISTER', {email, name, password, ref})

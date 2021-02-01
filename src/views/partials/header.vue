@@ -1,7 +1,9 @@
 <template>
   <div class="container">
+
+    <a id="scroll-to-top" class=""></a>
+
     <div class="b-header">
-      <!--Navbar-->
 
       <nav class="navbar navbar-expand-lg navbar-light b-header__menu-mobile">
         <button @click="toggleMenu" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -14,26 +16,25 @@
           <ul class="navbar-nav mr-auto">
             <li><router-link class="nav-link" to="/" exact>Главная</router-link></li>
             <li><router-link class="nav-link" to="about">О компании</router-link></li>
-            <li><router-link class="nav-link" to="documentation">Руководство для новичков</router-link></li>
+<!--            <li><router-link class="nav-link" to="documentation">Руководство для новичков</router-link></li>-->
           </ul>
         </div>
       </nav>
-      <!--/.Navbar-->
 
       <div class="b-header__logo">
-        <router-link to="/">
+        <a href="#scroll-to-top">
           <img src="@/assets/img/client/brand-logo2.png" alt="logo">
           <div>
             <p>Corex</p>
             <p>Brokers</p>
           </div>
-        </router-link>
+        </a>
       </div>
 
       <ul class="b-header__menu">
         <li><router-link to="/" exact>Главная</router-link></li>
         <li><router-link to="about">О компании</router-link></li>
-        <li><router-link to="documentation">Руководство для новичков</router-link></li>
+<!--        <li><router-link to="documentation">Руководство для новичков</router-link></li>-->
       </ul>
 
       <div class="b-header__auth">
