@@ -46,13 +46,13 @@
               </div>
             </form>
             <button 
-              :disabled="!amount"
+              :disabled="!amount || disabledDeal"
               class="btn btn-success btn-rounded btn-block btn-glow"
               @click="createDeal('high')">
               Выше
               </button>
             <button 
-              :disabled="!amount"
+              :disabled="!amount || disabledDeal"
               class="btn btn-danger btn-rounded btn-block btn-glow"
               @click="createDeal('low')">
               Ниже
@@ -72,6 +72,7 @@ export default {
     showPeriodDropdown: false,
     periods: [30, 60, 120],
     amount: 0,
+    disabledDeal: false,
     errBalance: false
   }),
   computed: {
@@ -147,6 +148,11 @@ export default {
           type: 'minus'
         })
         this.amount = 0
+
+        this.disabledDeal = true
+        setTimeout(() => {
+          this.disabledDeal = false
+        }, 10000)
       }
     },
   }

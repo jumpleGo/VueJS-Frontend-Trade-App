@@ -21,9 +21,10 @@
             <tbody>
               <Deal 
                 v-for="(deal, index) in deals"
-                :key="`${deal.pair}-${deal.status}-${deal.amount}`"
+                :key="getIndividualId(deal)"
                 :index="index"
-                :deal="deal" />
+                :deal="deal"
+                @close-deal="closeDeal" />
             </tbody>
           </table>
         </div>
@@ -45,6 +46,14 @@ export default {
     currentUser () {
       return this.$store.state.user.currentUser
     }
+  },
+  methods: {
+    closeDeal (obj) {
+      this.$store.dispatch('deals/CLOSE_DEAL', obj)
+    },
+    getIndividualId (deal) {
+      return `${(Math.random() * (9999999 - 1) + 1).toFixed()}-${deal.base}`
+    },
   },
   mounted () {
     this.$store.dispatch('deals/GET_DEALS_BY_USERID', this.currentUser.id)

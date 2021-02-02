@@ -108,7 +108,7 @@ export default {
     },
 
     closeDeal () {
-      this.$store.dispatch('deals/CLOSE_DEAL', {
+      this.$emit('close-deal', {
         deal: this.deal,
         price: this.price
       })

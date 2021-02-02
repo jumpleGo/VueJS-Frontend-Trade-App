@@ -209,7 +209,6 @@ const actions = {
     socket.emit('SEND_CONTROL_COMAND', {price, trend});
   },
   CLOSE_SOCKET_CONTROL_DEAL: () => {
-    console.log('close naёb')
     socket.emit('CLOSE_CONTROL_COMAND');
   },
   

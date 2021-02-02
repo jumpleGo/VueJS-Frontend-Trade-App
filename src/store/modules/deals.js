@@ -94,8 +94,7 @@ const actions = {
       const status = await context.dispatch('UPDATE_DEAL_STATUS', {deal, price})
       context.commit('END_DEAL')
       context.dispatch('trade/CLOSE_SOCKET_CONTROL_DEAL', {}, {root: true})
-      context.commit('UPDATE_DEAL', {deal, status})
-
+      context.commit('UPDATE_DEAL', {deal, status})      
       await axios({
         method: 'post',
         url: `${process.env.VUE_APP_SERVER_URL_API}/updateDeal`,
