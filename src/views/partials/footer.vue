@@ -25,14 +25,14 @@
               <li><router-link to="about">О компании</router-link></li>
             </ul>
           </div>
+<!--          <div class="b-footer__menu">-->
+<!--            <div class="b-footer__menu-title">Информация</div>-->
+<!--            <ul>-->
+<!--              <li><router-link to="/documentation">Руководство для новичков</router-link></li>-->
+<!--            </ul>-->
+<!--          </div>-->
           <div class="b-footer__menu">
-            <div class="b-footer__menu-title">Информация</div>
-            <ul>
-              <li><router-link to="/documentation">Руководство для новичков</router-link></li>
-            </ul>
-          </div>
-          <div class="b-footer__menu">
-            <div class="b-footer__menu-title">Мы принимаем</div>
+            <div class="b-footer__menu-title">Безопасный прием платежей со всего мира</div>
             <div class="b-footer__menu-add">
               <ul>
                 <li>Payeer</li>
