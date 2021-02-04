@@ -9,7 +9,7 @@
           безопасным способом и получите доступ к
           полному спектру наших продуктов.
         </div>
-        <router-link class="open-account__btn" to="login">Открыть счет</router-link>
+        <router-link class="open-account__btn" to="registration">Открыть счет</router-link>
       </div>
     </section>
 
@@ -33,35 +33,6 @@
 <!--          </div>-->
           <div class="b-footer__menu">
             <div class="b-footer__menu-title">Безопасный прием платежей со всего мира</div>
-            <div class="b-footer__menu-add">
-              <ul>
-                <li>Payeer</li>
-                <li>Visa</li>
-                <li>Master card</li>
-                <li>МИР</li>
-                <li>Bitcoin</li>
-                <li>Ethereum</li>
-                <li>Payeer</li>
-              </ul>
-              <ul>
-                <li>QIWI</li>
-                <li>Яндекс.Деньги</li>
-                <li>Альфа Клик</li>
-                <li>Web Money</li>
-                <li>Perfect Money</li>
-                <li>Pay Pal</li>
-                <li>Skrill</li>
-              </ul>
-              <ul>
-                <li>Capitalist</li>
-                <li>Золотая корона</li>
-                <li>Epay</li>
-                <li>Tele 2 Россия</li>
-                <li>Билайн Россия</li>
-                <li>МТС Россия</li>
-                <li>Мегафон Россия</li>
-              </ul>
-            </div>
           </div>
         </div>
 
