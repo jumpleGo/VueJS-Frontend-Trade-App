@@ -24,7 +24,7 @@
                           v-model="password"
                           type="password" 
                           class="form-control" 
-                          placeholder="Регистрация">
+                          placeholder="Пароль">
                           <span v-if="!password" class="error--text">Обязательное поле</span>
                           <span v-if="password && !$v.password.minLength" class="error--text">Минимальное количество символов 5</span>
                           <p><router-link to="reset">Забыли пароль?</router-link></p>

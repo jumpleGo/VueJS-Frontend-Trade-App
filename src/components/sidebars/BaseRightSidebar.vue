@@ -36,9 +36,11 @@
                       id="btc-limit-buy-price" 
                       class="form-control" 
                       placeholder="Сумма $" 
+                      min="0"
                       name="btc-limit-buy-price"
+                      @keydown="keyDown($event)"
                       @input="errBalance = false">
-                      <span class="feature-amount-title">Возможный выигрыш:</span>
+                      <span class="feature-amount-title">Возможный доход:</span>
                       <span class="feature-amount">$ {{ futureAmount }}</span>
                       <span class="error" v-if="errBalance">Недостаточно средств</span>
                   </div>
@@ -67,14 +69,16 @@
 <script>
 export default {
   name: 'BaseRightSidebar',
-  data: () => ({
-    lastPriceInfo: null,
-    showPeriodDropdown: false,
-    periods: [30, 60, 120],
-    amount: 0,
-    disabledDeal: false,
-    errBalance: false
-  }),
+  data: function(){
+    return {
+      lastPriceInfo: null,
+      showPeriodDropdown: false,
+      periods: [30, 60, 120],
+      amount: 0,
+      disabledDeal: false,
+      errBalance: false
+    }
+  },
   computed: {
     futureAmount () {
       return (this.amount * 1.8).toFixed(2)
@@ -115,21 +119,29 @@ export default {
     isDealOpen () {
       return this.$store.state.deals.isDealOpen
     },
+    MODE_BALANCE () {
+      return this.$store.getters['user/MODE_BALANCE']
+    }
   },
 
   methods: {
+    keyDown (event) {
+      if (event.code === 'Minus' || event.code === 'Equal') {
+        event.preventDefault()
+      }
+    },
     setPeriod(p) {
       this.$store.commit('trade/SET_PERIOD', p)
       this.showPeriodDropdown = !this.showPeriodDropdown
     },
 
     async createDeal (trend) {
-      
-      if (this.currentUser.balance < this.amount) {
+      if (this.currentUser[this.MODE_BALANCE] < this.amount) {
         this.errBalance = true
       } else {
         let date = new Date()
         await this.$store.dispatch('deals/CREATE_DEAL', {
+          mode: this.MODE_BALANCE,
           trend,
           user: this.currentUser.id,
           currentPrice: this.showPrice,
@@ -144,6 +156,7 @@ export default {
         })
         
         await this.$store.dispatch('user/UPDATE_USER_BALANCE', {
+          mode: this.MODE_BALANCE,
           amount: this.amount,
           type: 'minus'
         })
@@ -152,7 +165,7 @@ export default {
         this.disabledDeal = true
         setTimeout(() => {
           this.disabledDeal = false
-        }, 10000)
+        }, 2000)
       }
     },
   }

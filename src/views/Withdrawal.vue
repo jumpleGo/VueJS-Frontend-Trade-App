@@ -157,11 +157,14 @@ export default {
   }),
 
   computed: {
+    MODE_BALANCE () {
+      return this.$store.getters['user/MODE_BALANCE']
+    },
     engthWithdrawal () {
       return this.$store.state.settings.settings.minAmount
     },
     toTrade () {
-      return '< Трейдить'
+      return '< Вернуться'
     },
     currentUser () {
       return this.$store.state.user.currentUser
@@ -198,7 +201,8 @@ export default {
           userId: this.currentUser.id,
           date: new Date(),
           status: 'NEW',
-          type: this.type
+          type: this.type,
+          mode: this.MODE_BALANCE
         }).then(() => {
           this.card = null
           this.amount = null

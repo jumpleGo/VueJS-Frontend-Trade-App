@@ -22,7 +22,7 @@ const actions = {
         headers: {'Content-Type': 'application/json'},
         data: request
       })
-      await context.dispatch('user/UPDATE_USER_BALANCE', {amount: request.amount, type: 'minus'}, {root: true})
+      await context.dispatch('user/UPDATE_USER_BALANCE', {amount: request.amount, type: 'minus', mode: request.mode}, {root: true})
       if (result.status === 200) {
         context.commit('ADD_WITHDRAWAL', new MWithd(result.data))
       }

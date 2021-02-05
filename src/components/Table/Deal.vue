@@ -7,10 +7,10 @@
         {{ deal.statusWord(deal.status)}}
       </span>
     </td>
-    <td>{{ formateDate }}</td>
     <td class="color-primary">$ {{ deal.amount }}</td>
     <td class="color-primary">{{ checkTrend }}</td>
     <td>{{ durationTimer }}</td>
+    <td>{{ formateDate }}</td>
   </tr>
 </template>
 
@@ -65,6 +65,9 @@ export default {
     formateDate () {
       return moment(this.deal.startDate).format('LLL')
     },
+    MODE_BALANCE () {
+      return this.$store.getters['user/MODE_BALANCE']
+    },
     endDate () {
       return moment(this.deal.endDate).format('LLL')
     },
@@ -109,6 +112,7 @@ export default {
 
     closeDeal () {
       this.$emit('close-deal', {
+        mode: this.MODE_BALANCE,
         deal: this.deal,
         price: this.price
       })

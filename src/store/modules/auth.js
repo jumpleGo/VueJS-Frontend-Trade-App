@@ -58,10 +58,10 @@ const actions = {
   },
 
   LOGOUT: (context) =>  {
-    console.log(0)
     localStorage.removeItem('tradingBTCToken')
     localStorage.removeItem('currentUser')
     context.commit('user/DELETE_CURRENT_USER',{}, {root: true})
+    context.commit('deals/SET_DEALS', [], {root: true})
     router.push('/login')
   },
   REGISTER: async (context, data) => {

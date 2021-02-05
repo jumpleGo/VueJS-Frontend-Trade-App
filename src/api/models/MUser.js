@@ -4,6 +4,7 @@ export class MUser  {
       return {
         email: data.email || null,
         balance: data.balance || 0,
+        demoBalance: data.demoBalance || 0,
         id: data._id || null,
         isVerified: data.isVerified || false,
         isAdmin: data.isAdmin || false,
@@ -16,6 +17,7 @@ export class MUser  {
       return {
         email: null,
         balance: 0,
+        demoBalance: 0,
         id: null,
         isVerified: false,
         isAdmin: false,

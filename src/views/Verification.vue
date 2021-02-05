@@ -145,7 +145,7 @@ export default {
 
   computed: {
     toTrade () {
-      return '< Трейдить'
+      return '< Вернуться'
     },
     verifyRequest () {
       return this.$store.state.verify.verifyRequest

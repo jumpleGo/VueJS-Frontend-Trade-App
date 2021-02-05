@@ -89,9 +89,9 @@ const actions = {
     }
   },
 
-  CLOSE_DEAL: async (context, {deal, price}) => {
+  CLOSE_DEAL: async (context, {deal, price, mode}) => {
     try {
-      const status = await context.dispatch('UPDATE_DEAL_STATUS', {deal, price})
+      const status = await context.dispatch('UPDATE_DEAL_STATUS', {deal, price, mode})
       context.commit('END_DEAL')
       context.dispatch('trade/CLOSE_SOCKET_CONTROL_DEAL', {}, {root: true})
       context.commit('UPDATE_DEAL', {deal, status})      
@@ -105,18 +105,20 @@ const actions = {
       console.log(err)
     }
   },
-  UPDATE_DEAL_STATUS: async (context, {deal, price}) => {
+  UPDATE_DEAL_STATUS: async (context, {deal, price, mode}) => {
     if ((deal.currentPrice < price && deal.trend === 'high') || (deal.currentPrice > price && deal.trend === 'low')) {
       await context.dispatch('user/UPDATE_USER_BALANCE', {
         amount: deal.amount * 1.8,
-        type: 'plus'
+        type: 'plus',
+        mode
       },
       {root: true})
       return 'WIN'
     } else if (deal.currentPrice === price) {
       await context.dispatch('user/UPDATE_USER_BALANCE', {
         amount: deal.amount,
-        type: 'plus'
+        type: 'plus',
+        mode
       }, {root: true})
       return 'RETURN'
     } else {

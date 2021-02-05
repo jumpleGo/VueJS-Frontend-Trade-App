@@ -177,7 +177,7 @@ export default {
         : (+this.amount + +this.amount * +this.activePromocode.bonus / 100).toFixed()
     },
     toTrade () {
-      return '< Трейдить'
+      return '< Вернуться'
     },
     currentUser () {
       return this.$store.state.user.currentUser

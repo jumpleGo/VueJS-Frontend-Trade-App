@@ -48,7 +48,7 @@ const getters = {
       borderWidth: 0,
       backgroundColor: 'rgba(3,127,252,0.02)',
       borderColor: "#037ffc",
-      data: state.chartData.datasets[0].data.slice(-(num*30))
+      data: num ? state.chartData.datasets[0].data.slice(-(num*30)) : state.chartData.datasets[0].data
     }] 
   }),
   candleData: state => state.candleData,

@@ -101,6 +101,9 @@ export default {
 
 <style lang="sass">
 .period-chart
+  padding: 5px
+  margin-right: 5px
+  border-right: 1px solid #cecece
   &:hover
     cursor: pointer
 .chart

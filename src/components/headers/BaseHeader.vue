@@ -32,9 +32,17 @@
                     {{ currentUser.email }}
                     </span>
                   </li>
-                <li><span>Баланс: {{ currentUser.balance }}$</span></li>
+                <li v-if="currentUser.demoBalance"><span>Демо Счет: {{ currentUser.demoBalance }}$</span></li>
+                <li v-else><span>Баланс: {{ currentUser.balance }}$</span></li>
                 <router-link to="merchant" tag="li"><span>Пополнть баланс</span></router-link>
-                <router-link to="withdrawal" tag="li"><span>Вывод средств</span></router-link>
+                <router-link 
+                  v-if="MODE_BALANCE === 'balance'"
+                  to="withdrawal" 
+                  tag="li">
+                  <span>
+                    Вывод средств
+                  </span>
+                </router-link>
                 <router-link to="referral" tag="li"><span>Реферальная программа</span></router-link>
                 <router-link v-if="currentUser.isAdmin" to="admin" tag="li">
                   <img 
@@ -64,6 +72,9 @@ export default {
     ...mapState('user', {
       currentUser: state => state.currentUser,
     }),
+    MODE_BALANCE () {
+      return this.$store.getters['user/MODE_BALANCE']
+    },
     isVerified () {
       return this.currentUser.isVerified ? 'Верифицирован' : 'Не верифицирован'
     }
