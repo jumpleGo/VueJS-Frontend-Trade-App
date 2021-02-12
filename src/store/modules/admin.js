@@ -6,18 +6,23 @@ const state = () => ({
   currentRoute: 'usersTable',
   settings: {},
   verificationRequests: [],
-  searchedUsers: []
+  searchedUsers: [],
+  deposits: []
 })
 
 const getters = {
   users: state => state.users,
   withdrawals: state => state.withdrawals.filter(v => !v.archived),
+  deposits: state => state.deposits.sort(function(a,b){
+    return new Date(b.created_at) - new Date(a.created_at);
+  }),
   archivedWithdrawals: state => state.withdrawals.filter(v => v.archived),
   verificationRequests: state => state.verificationRequests.filter(v => !v.archived),
   archivedVerificationRequests: state => state.verificationRequests.filter(v => v.archived)
 }
 
 const mutations = {
+  SET_DEPOSITS: (state, deps) => state.deposits = deps,
   SET_CURRENT_ROUTE: (state, route) => state.currentRoute = route ,
   SET_USERS: (state, users) => state.users = users,
   SET_SEARCHED_USERS: (state, users) => state.searchedUsers = users,
@@ -167,7 +172,21 @@ const actions = {
     } catch (err) {
       console.log(err)
     }
-  }
+  },
+
+  GET_DEPOSITS: async (context) => {
+    try {
+      const res = await axios({
+        method: 'post',
+        url: `${process.env.VUE_APP_SERVER_URL_API}/getDeposits`,
+        headers: {'Content-Type': 'application/json'}
+      })
+      console.log("🚀 ~ file: admin.js ~ line 182 ~ GET_DEPOSITS: ~ res", res)
+      context.commit('SET_DEPOSITS', res.data)
+    } catch (err) {
+      console.log(err)
+    }
+  },
 }
 
 export default {

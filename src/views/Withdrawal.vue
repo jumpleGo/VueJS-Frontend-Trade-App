@@ -1,13 +1,15 @@
 <template>
-  <div id="main-wrapper">
-    <base-header />
+  <div id="main-wrapper" class="container-fluid">
+    <div class="row">
+      <base-header />
+    </div>
     <div class="row">
       <router-link 
         class="col-lg-2 to-trade" 
         to="dashboard">
         {{ toTrade }}
       </router-link>
-      <div v-if="!currentUser.withdrawalBlocked" class="col-lg-6 offset-1">
+      <div v-if="!currentUser.withdrawalBlocked" class="col-lg-6 offset-md-1 offset-sm-0 withdrawal">
         <div class="card">
           <div class="card-title">
             <h4>Вывод средств</h4>
@@ -249,5 +251,16 @@ export default {
   padding-left: 55px
   &:hover
     text-decoration: unset
-      
+
+@media screen and (max-width: 700px)
+  .withdrawal
+    margin-top: 10px
+  .payment-type
+    margin-top: 10px
+</style>
+<style lang="sass">
+@media screen and (max-width: 700px)
+  .to-trade     
+    margin-top: 50px !important
+    padding-left: 10px  !important
 </style>

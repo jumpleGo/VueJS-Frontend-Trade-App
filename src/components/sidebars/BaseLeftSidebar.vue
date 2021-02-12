@@ -193,4 +193,13 @@ tbody tr td
     font-weight: 500
     padding: 5px
     background: rgba(208, 213, 219, 0.7)
+
+@media screen and (max-width: 700px)
+  .left-sidebar
+    width: 100%
+    position: relative
+  .last-deals
+    display: none
+  .scroll-sidebar
+    padding-bottom: unset
 </style>

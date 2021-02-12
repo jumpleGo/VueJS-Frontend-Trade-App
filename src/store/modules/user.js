@@ -6,7 +6,7 @@ const state = () => ({
 })
 
 const getters = {
-  MODE_BALANCE: state => state.currentUser.demoBalance > 0 ? 'demoBalance' : 'balance'
+  MODE_BALANCE: state => !state.currentUser.balance ? 'demoBalance' : 'balance'
 }
 
 const mutations = {

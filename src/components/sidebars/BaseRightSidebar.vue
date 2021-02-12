@@ -226,4 +226,16 @@ button:hover
   border: unset
 button:disabled
   cursor: not-allowed
+
+@media screen and (max-width: 700px)
+  .left-sidebar
+    width: 100%
+    position: relative
+    padding-top: unset !important
+    height: unset
+    z-index: 1
+  .last-deals
+    display: none
+  .scroll-sidebar
+    padding-bottom: unset
 </style>

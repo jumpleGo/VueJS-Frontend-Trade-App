@@ -1,6 +1,6 @@
 <template>
-  <div>
-      <div class="row">
+  <div style="background-color: #FAFAFA">
+      <div>
         <div class="col-lg-12">
           <div id="invoice">
             <div id="invoice-top">
@@ -120,7 +120,7 @@
                 </div>
               </div>
             </div>
-            <div v-else class="no-table">
+            <div v-else-if="currentReferral && !currentReferral.deposits.length" class="no-table">
               <b>Нет пополнений</b>
               <div>
                 <img src="/images/icons/files.svg"> У этого реферала нет пополнений

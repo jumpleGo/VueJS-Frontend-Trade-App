@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-lg-6 offset-3">
+    <div class="col-lg-6 offset-md-3 offset-md-0 col-sm-12">
       <div class="card">
         <div class="card-title">
           <h4>История заявок</h4>

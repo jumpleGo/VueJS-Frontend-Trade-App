@@ -54,6 +54,10 @@ export default {
         name: 'Промокоды',
         path: 'promocodesTable'
       },
+      {
+        name: 'Депозиты',
+        path: 'deposits'
+      },
     ]
   }),
   methods: {

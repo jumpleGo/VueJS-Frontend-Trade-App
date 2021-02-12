@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div class="header container-fluid">
     <nav class="navbar top-navbar navbar-expand-md navbar-light">
       <div class="navbar-header">
         <span class="navbar-brand">
@@ -7,7 +7,7 @@
         </span>
       </div>
       <div class="navbar-collapse">
-        <ul class="navbar-nav col-sm-12">
+        <ul class="navbar-nav col-sm-3 col-md-12">
           <li class="nav-item dropdown col-sm-1 offset-sm-11">
             <span 
               class="user-icon nav-link dropdown-toggle text-muted"
@@ -32,8 +32,16 @@
                     {{ currentUser.email }}
                     </span>
                   </li>
-                <li v-if="currentUser.demoBalance"><span>Демо Счет: {{ currentUser.demoBalance }}$</span></li>
-                <li v-else><span>Баланс: {{ currentUser.balance }}$</span></li>
+                <li v-if="!currentUser.balance">
+                  <span>Демо Счет: {{ currentUser.demoBalance.toFixed(2) }}$</span>
+                  <span 
+                    v-if="currentUser.demoBalance < 10" 
+                    @click="$store.dispatch('user/UPDATE_USER_BALANCE', {amount: 1000, type: 'plus', mode: 'demoBalance'})"
+                    style="color: blue">
+                    Добавить
+                  </span>
+                </li>
+                <li v-else><span>Баланс: {{ currentUser.balance.toFixed(3) }}$</span></li>
                 <router-link to="merchant" tag="li"><span>Пополнть баланс</span></router-link>
                 <router-link 
                   v-if="MODE_BALANCE === 'balance'"
@@ -95,6 +103,13 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+.header
+  padding: 0 !important
+.navbar-collapse
+  border-top: unset
+  padding-top: unset
+.header .top-navbar
+  padding: 0
 .user-icon
   padding-left: unset !important
   padding-right: unset !important
@@ -129,4 +144,12 @@ export default {
 .--no-verified
   color: white
   background: red
+@media screen and (max-width: 700px)
+  .header .top-navbar
+    padding: 0
+  .header .top-navbar .navbar-nav>.nav-item>.nav-link
+    margin-left: auto
+  .navbar-collapse
+    border-top: unset
+    padding-top: unset
 </style>

@@ -15,12 +15,12 @@
     <base-chart
       v-if="chartType === 'line'"
       class="line-chart"
-      :height="200"
+      :height="isMobile ? 500 : 200"
       :period-chart="periodChart"
       :chart-data="chartData" />
     <candlestick
       v-if="chartType === 'candle'"
-      :height="200"
+      :height="isMobile ? 500 : 200"
       class="candle-chart" />
   </div>
   <div
@@ -30,6 +30,7 @@
   </div>
 </template>
 <script>
+import { isMobile } from 'mobile-device-detect';
 import Candlestick from './Candlestick'
 import BaseChart from './BaseChart'
 export default {
@@ -43,6 +44,9 @@ export default {
     periods: [5, 15, 30]
   }),
   computed: {
+    isMobile () {
+      return isMobile
+    },
     drawChart () {
       return this.$store.state.trade.drawChart
     },

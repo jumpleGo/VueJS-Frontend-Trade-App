@@ -1,13 +1,14 @@
 <template>
   <tr>
-    <th scope="row">{{ d.orderId}}</th>
     <td>{{ formateDate }}</td>
+    <td class="color-primary">$ {{ d.amount }}</td>
+    <td class="color-primary">{{ d.type }} {{ d.cryptoAmount.toFixed(4) }}</td>
     <td>
       <span v-if="d.promocode" :class="[`badge badge-success`]">
         {{ d.promocode }}
       </span>
     </td>
-    <td class="color-primary">$ {{ d.amount }}</td>
+    
   </tr>
 </template>
 

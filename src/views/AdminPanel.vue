@@ -13,6 +13,7 @@ import PlatformSettings from '@/components/admin/PlatformSettings'
 import AdminLeftSidebar from '@/components/admin/AdminLeftSidebar'
 import PlatformPartnersTable from '@/components/admin/PlatformPartnersTable'
 import PromocodesTable from '@/components/admin/PromocodesTable'
+import Deposits from '@/components/admin/Deposits'
 export default {
   components: {
     UsersTable,
@@ -21,7 +22,8 @@ export default {
     AdminLeftSidebar,
     PlatformSettings,
     PlatformPartnersTable,
-    PromocodesTable
+    PromocodesTable,
+    Deposits
   },
   name: 'AdminPanel',
 

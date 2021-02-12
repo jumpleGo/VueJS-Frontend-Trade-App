@@ -1,6 +1,8 @@
 <template>
-  <div id="main-wrapper">
-    <base-header />
+  <div id="main-wrapper" class="container-fluid">
+    <div class="row">
+      <base-header />
+    </div>
     <div class="row">
       <router-link 
         class="col-lg-2 to-trade" 
@@ -9,12 +11,12 @@
       </router-link>
       <div
         v-if="currentUser.isVerified" 
-        class="col-lg-6 offset-1 message-block">
+        class="col-lg-6 offset-md-1 offset-sm-0 message-block">
         <h1>Ваш аккаунт верифицирован</h1>
       </div>
       <div
         v-else-if="verifyRequest && verifyRequest.status === 'NEW'" 
-        class="col-lg-6 offset-1 message-block">
+        class="col-lg-6 offset-md-1 offset-sm-0 message-block">
         <img src="/images/icons/clock.svg" alt="">
         <div>
           <h1>Ваш документы проходят модерацию.</h1>
@@ -24,7 +26,7 @@
       </div>
       <div 
         v-else
-        class="col-lg-6 offset-1">
+        class="col-lg-6 offset-md-1 offset-sm-0">
         <div
           v-if="verifyRequest && verifyRequest.status === 'REJECTED'" 
           class="message-block --error">

@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-lg-6 offset-3">
+    <div class="col-lg-6 offset-md-3 col-sm-12 offset-sm-0">
       <div class="card">
         <div class="card-title">
           <h4>История пополнений</h4>
@@ -10,10 +10,10 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th>#</th>
-                  <th>Дата</th>
-                  <th>Промокод</th>
+                  <th>Дата</th>    
                   <th>Сумма</th>
+                  <th>Валюта</th>
+                  <th>Промокод</th>
                 </tr>
               </thead>
               <tbody>
@@ -44,9 +44,6 @@ export default {
     currentUser () {
       return this.$store.state.user.currentUser
     }
-  },
-  mounted () {
-    this.$store.dispatch('deposit/GET_DEPOSITS_BY_USERID', this.currentUser.id)
   },
 }
 </script>

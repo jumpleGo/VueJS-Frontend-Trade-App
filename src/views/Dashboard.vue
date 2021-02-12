@@ -1,37 +1,38 @@
 <template>
   <div id="main-wrapper">
-        <!-- header header  -->
-        <base-header />
-        <base-left-sidebar />
-        <div class="page-wrapper">
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-12">
-                <!--TODO: move to self component -->
-                <div class="tools card">
-                  <div class="options">
-                    <button 
-                      :class="[{'--active': chartType === 'line'}]"
-                      @click="setChartType('line')">
-                      <img class="icon" src="/images/icons/line-chart.svg" alt="">
-                    </button>
-                    <button 
-                      :class="[{'--active': chartType === 'candle'}]"
-                      @click="setChartType('candle')">
-                      <img class="icon" src="/images/icons/bar-chart.svg" alt="">
-                    </button>
-                  </div>
-                </div>
-                <div class="card chart">
-                  <base-traiding />
-                </div>
+    <!-- header header  -->
+    <base-header />
+    <base-left-sidebar />
+    <div class="page-wrapper">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <!--TODO: move to self component -->
+            <div class="tools card">
+              <div class="options">
+                <button 
+                  :class="[{'--active': chartType === 'line'}]"
+                  @click="setChartType('line')">
+                  <img class="icon" src="/images/icons/line-chart.svg" alt="">
+                </button>
+                <button 
+                  :class="[{'--active': chartType === 'candle'}]"
+                  @click="setChartType('candle')">
+                  <img class="icon" src="/images/icons/bar-chart.svg" alt="">
+                </button>
               </div>
-              <Table />
             </div>
-            <base-right-sidebar />
+            <div class="card chart">
+              <base-traiding />
+            </div>
+            <base-right-sidebar class="mobile-right" />
           </div>
+          <Table />
         </div>
+        <base-right-sidebar class="desktop-right" />
+      </div>
     </div>
+  </div>
 </template>
 <script>
 import Table from '@/components/Table/Table'
@@ -68,6 +69,10 @@ export default {
   @import './../dashboard-assets/css/style.css';
 </style>
 <style lang="sass" scoped>
+.desktop-right
+  display: block
+.mobile-right
+  display: none
 .tools
   padding: 10px
 .options
@@ -99,4 +104,12 @@ export default {
 .--red
   color: red
 
+
+@media screen and (max-width: 700px) 
+  .mobile-right
+    display: flex
+  .desktop-right
+    display: none
+  .page-wrapper
+    margin: unset
 </style>
