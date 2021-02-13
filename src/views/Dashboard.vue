@@ -28,6 +28,21 @@
             <base-right-sidebar class="mobile-right" />
           </div>
           <Table />
+            <footer class="b-footer" style="background: white; width: 100%; padding: 40px 40px 0">
+              <div class="container">
+                <div class="b-footer__menu-wrap">
+                  <div class="b-footer__menu">
+                    <ul>
+                      <li><router-link to="/">Главная</router-link></li>
+                      <li><router-link to="term">Оферта</router-link></li>
+                      <li><router-link to="contacts">Контакты</router-link></li>
+                      <li><router-link to="about">О компании</router-link></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="b-footer__copyright">Corex Brokers 2020</div>
+              </div>
+            </footer>
         </div>
         <base-right-sidebar class="desktop-right" />
       </div>
@@ -97,6 +112,7 @@ export default {
   max-width: 1200px
 .page-wrapper
   margin-right: 240px
+  padding-bottom: 0
 .--right
   right: 0
 .nav-link
