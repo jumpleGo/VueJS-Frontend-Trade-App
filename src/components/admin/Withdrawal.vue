@@ -1,6 +1,11 @@
 <template>
   <tr>
     <th scope="row">{{ index + 1 }}</th>
+    <td>
+      <span>
+        {{ w.userObject[0].email }}
+      </span>
+    </td>
     <td>{{ w.amount }}$</td>
     <td>
       <span 

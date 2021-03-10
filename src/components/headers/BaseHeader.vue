@@ -3,13 +3,9 @@
     <nav class="navbar top-navbar navbar-expand-md navbar-light">
       <div class="navbar-header">
         <div class="b-header__logo" style="margin-left: 40px">
-          <a href="#scroll-to-top">
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAA1CAYAAAA6XQlSAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAcQSURBVHgBzVp7bFNVGP/ObTfYgLFXe9sRA85I1PASdBAgDEWEoBESeRgx8lCcMHwEARnoQHkGnYmLCe/MsKkRNCgJJMQAggpjhEcCBuUPAQf0dms32ITSru3xd9qOjK1r72uBX3LT+zj3O7/7nXN+5/u+jZHJqM/N7cWt1g37FSWYTrRkOlGATIREJuKK3Z5PVuuvjKgoSLSgmejkNiKZTIRphN12+8g0SarhRENb74WIBuHnxFaikWQSTCHcaLevZIwdxWlO2/ss+tMXnfwOT68gE8DIAOBN5pXlyjBjr7a1hZPQz4rC8dzarv2WO0RL3yVqIp3Q7WGfw9GvQZbPhBibSeo/vAgLsXoHUT7phC7CHrv9OSyoEyA7WMsQibbw8uNhonPbiaaQDmgm7LXbF3FJ2odTO+lHOkjvhqdXbSFK0fKiasKNmZmZdQ5HRUiSyuClVDIIeNsK0qUg8NNefIDa91QRFvoa7N79BIjOJnMhZsmkOqLzO4kGqHkhKWEsrBfTGDsOsv0NSUoCwPbDUI8DkL4Zydp2Svgwhgxk12Bh/UiMGZmvqgBn5OH4roJoeZJ2HdHkdOb6Oa/El08gHVrdmQ6rBMf73+PdJfOIrrZ/2MHD/8nyQD/RH3rJmgCGvl9Bx0fg7UfbP7yHsNvpnHmbsWOc8/50f8jeBUjnt0DrMa9fb3s/QljMV48sr5M4r8JlT3pAAI9lgfgO6PXn5UTdxL0I4YGyvIUztoyTORB2EAyZMkIxvV4EtpXiOkK4B2OrGefHyQSgA38KY6tgbxGLcjcKYeNsGtGH4kKCuwenKcrlm4HAJDilzKBb3BbGxme5XGvmEpXD1hgc/5IB4P2t8PBoTORLjTbbEAkXBzGx33+ksfGmzeVajAbL0O6OFqNYpMLwSXh2eLbL9Vvr/TcQB/cgKsTpOdKOgIXo7Qyi4iKi216HY2rIYjnEtsWGDR1uhOiVrCIKN+blPRkKh/fgY/omsxoZkXB4Y1NLyzrx0fHavIUAZzhRGey9Q+pwCcc06PApoeUeh6ME159G1kYr4cgF0VEo/aw5RJc9OTl9eEpKFe6PTUA2AGUpznG7t5MKoNFC/KyFzYxO7HF81P5MxM1IXq819emTEwgGdyFBeIZivpHaNBYYgxcOw3BBrtd77YqiPG/lfD3uh+PYv8xDoXFqyQq8SfQVtHUsOq2NRxY/5deJpguyN5zOYf5QqKYt2Ui7bXFWMm740KIYQ1IhrpFgzoRObcaiFBotts7TUiAwJaeh4SrpgMikQboKXhhH0Z1N9LcM/ZWL5whji/HzMcXJuOMSbgUm/ZdguFTUFlzZ2U9YUlN/QLRdnaUoc8kgxEbQHVIF4gvQz0RMw7McNQ2v1bo20VxPSDjSACsdDabi693CIPN4mslEIOPoDRW4eUPE3BbLpjDn4ylBWJCUcKQRYnh89TSs9pPUBcCUG5UiSVUovvRL1lZVxoEv6gvSh7C6FpPJaHA4FoqahhqyAqo8fLdxVHbKsauUGqktCIiaRhNyRNiapSnz1kI41pEYllOQp6nzIW2kA968vIcoFNobZGyI1lBAc5ofqy0MwwZTvZloPGlEs802hofDR0M6yAoYqa3JkKN9FbEoSg0wX+ffsVh+Caucr/GgeUp0MBDdSCptRPNfQpASr01tRkZ2enp6CYguNhpvGiYsIAzA2/9guMbNaTevhb62SNJukB1qRkQvmRFhCyIglA9pOgbpm9h6H2nXsyArahqmkI30hQD+HArPA0wzGHX4ipcdjtQg5yuQemmqnSUCRvGi8HAhOvmGzElnIvqKYw3IfmQWWRY99lt8vhEWFOJ8OPaciU6PAqaxmthJB+HHevYUmajhCn9s5FfnKkpRmt/vk2I3OWLVlSA8Dcc1ekCARLYZMfcMm6KUslhMfo8HEDXtg3tH4+EFup9AkggOf2LOjrTX1+9q+6jDkAlZgpgW4kGFSWm6VnD0vdd/61Zhttt9vv3DhOIABfkAjD/jGstWohg4WZbhJqa1GOjHCK/PVJTVLH5alnhrRppeRtF44Qp1PRTEGJORzXzSGVmBpKsYi/EgGk2AkYvUNRDT7i+LJBXIdXUHkjVWJTvw9N810c3lWzIZUIIdLBgsyLl+vVZNe9U6iT+/toD4azgt4QaD9xj8UIP3bG73PJuGPFGTsAvVQDK6AXLzAi49BiTEnRIMTrC73eUa39MXD4uamSUa0FSTFukT+srY6V5EI7I8niOkA7q3ThQman2o4oD0BlWax3lYYmwnCo7DRLWUdMLQXo9E1A8VWQ4XL8AR7NTVnLdAkEsRD8wmgzDl3w8wrzehijNIilYd7wG8X98tGByFXWstmQDT/sEDBecL2KWeBsG7lXyc16DA/VRvr7dLCjBmgX2N7bze6fyizmYz/Q88/wOzaFYqsyxFIQAAAABJRU5ErkJggg==" alt="logo"> 
-            <div>
-              <p>Corex</p> 
-              <p>Brokers</p>
-            </div>
-          </a>
+          <router-link to="/dashboard">
+            <img src="/images/logo.jpg" alt="logo"> 
+          </router-link>
         </div>
       </div>
       <div class="navbar-collapse">
@@ -50,7 +46,6 @@
                 <li v-else><span>Баланс: {{ currentUser.balance.toFixed(3) }}$</span></li>
                 <router-link to="merchant" tag="li"><span>Пополнить баланс</span></router-link>
                 <router-link 
-                  v-if="MODE_BALANCE === 'balance'"
                   to="withdrawal" 
                   tag="li">
                   <span>

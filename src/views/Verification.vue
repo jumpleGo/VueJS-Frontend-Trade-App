@@ -129,7 +129,7 @@
 <script>
 import BaseHeader from '@/components/headers/BaseHeader'
 import FileUpload from 'vue-upload-component'
-import { required, minLength } from 'vuelidate/lib/validators'
+import { required } from 'vuelidate/lib/validators'
 
 export default {
   name: 'Verification',
@@ -164,7 +164,6 @@ export default {
       },
       phone: {
         required,
-        minLength: minLength(11)
       },
       address: {
         required

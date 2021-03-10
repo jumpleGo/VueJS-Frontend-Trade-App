@@ -14,6 +14,9 @@
           <div class="card-title">
             <h4>Вывод средств</h4>
           </div>
+          <div v-if="MODE_BALANCE === 'demoBalance'" class="attention" :style="{color: 'white', background: 'rgba(255,7,0,1)', padding: '5px 10px'}" >
+            Выводить демо-средства невозможно
+          </div>
           <div class="card-body">
             <div class="basic-form">
               <form @submit.prevent>
@@ -40,7 +43,7 @@
                     <span 
                       v-if="errength"
                       class="error">
-                      min: {{ this.engthWithdrawal }}
+                      Минимальная сумма вывода: {{ settings.minAmountForWithdrawal }}
                     </span>
                 </div>
                 <div 
@@ -101,8 +104,8 @@
                 </div>
                 <button 
                   type="button" 
-                  :disabled="$v.$invalid"
-                  class="btn btn-primary m-b-10 m-l-5"
+                  :disabled="disabled"
+                  :class="['btn btn-primary m-b-10 m-l-5', {'disabled': disabled }]"
                   @click="createRequest">
                   Создать заявку
                 </button>
@@ -135,7 +138,7 @@ export default {
   data: () => ({
     type: 'Card',
     card: null,
-    amount: null,
+    amount: '',
     errBalance: false,
     errength: false,
     paymentTypes: [
@@ -162,11 +165,14 @@ export default {
     MODE_BALANCE () {
       return this.$store.getters['user/MODE_BALANCE']
     },
-    engthWithdrawal () {
-      return this.$store.state.settings.settings.minAmount
+    settings () {
+      return this.$store.state.settings.settings
     },
     toTrade () {
       return '< Вернуться'
+    },
+    disabled () {
+      return this.$v.$invalid || this.MODE_BALANCE === 'demoBalance'
     },
     currentUser () {
       return this.$store.state.user.currentUser
@@ -187,7 +193,7 @@ export default {
 
   methods: {
     createRequest () {
-      if (this.amount < this.engthWithdrawal) {
+      if (this.amount < this.settings.minAmountForWithdrawal) {
         this.errength = true
         setTimeout (() => {
           this.errength = false

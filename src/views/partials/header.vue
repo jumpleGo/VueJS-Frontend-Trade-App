@@ -23,11 +23,7 @@
 
       <div class="b-header__logo">
         <a href="#scroll-to-top">
-          <img src="@/assets/img/client/brand-logo2.png" alt="logo">
-          <div>
-            <p>Corex</p>
-            <p>Brokers</p>
-          </div>
+          <img src="/images/logo.jpg" alt="logo">
         </a>
       </div>
 

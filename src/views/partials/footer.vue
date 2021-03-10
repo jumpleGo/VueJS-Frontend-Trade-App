@@ -3,7 +3,7 @@
 
     <section class="open-account">
       <div class="container">
-        <h2 class="open-account__title">Открыть счет в Corex Brokers сейчас</h2>
+        <h2 class="open-account__title">Открыть счет в Ocean Option сейчас</h2>
         <div class="open-account__sub-title">
           Просто зарегистрируйтесь, пополните свой счет
           безопасным способом и получите доступ к
@@ -40,7 +40,7 @@
           осознаете
           риски и что вы имеете достаточный уровень подготовки.
         </div>
-        <div class="b-footer__copyright">Corex Brokers 2020</div>
+        <div class="b-footer__copyright">Ocean Option 2020</div>
       </div>
     </footer>
   </div>

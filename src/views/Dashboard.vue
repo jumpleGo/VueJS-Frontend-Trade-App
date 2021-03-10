@@ -40,7 +40,7 @@
                     </ul>
                   </div>
                 </div>
-                <div class="b-footer__copyright">Corex Brokers 2020</div>
+                <div class="b-footer__copyright">Ocean Option 2020</div>
               </div>
             </footer>
         </div>

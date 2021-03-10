@@ -5,11 +5,11 @@
             <div class="container">
                 <div class="main-wrap">
                     <h1 class="main__title">
-                        Торгуйте с уверенностью вместе с Corex Brokers
+                        Торгуйте с уверенностью вместе с Ocean Option
                     </h1>
                     <div class="main__sub-title">
                         Откройте для себя возможности
-                        торговой платформы Corex Brokers!
+                        торговой платформы Ocean Option!
                     </div>
                     <div class="main__sub-title">
                         Живые котировки и инструменты со всех
@@ -24,7 +24,7 @@
         <section class="why">
             <div class="container">
                 <h2 class="why__title">
-                    Почему торговать с Corex Brokers?
+                    Почему торговать с Ocean Option?
                 </h2>
                 <div class="why__items">
                     <div class="why__item">
@@ -91,7 +91,7 @@
 
                     <form @submit.prevent class="form-feedback__wrap-inputs">
                         <div class="form-feedback__title">
-                            Регистрация в Corex Brokers
+                            Регистрация в Ocean Option
                         </div>
 
                         <div class="form-feedback__input">
@@ -171,8 +171,8 @@
                     <div class="category__card">
                         <div class="category__card-title">Торговый счет</div>
                         <ul class="category__card-list">
-                            <li class="category__card-item">Активируется без
-                                пополнения счета
+                            <li class="category__card-item">Активируется при
+                                пополнения счета на 30$
                             </li>
                             <li class="category__card-item">$1000 на тесты ваших
                                 стратегий
@@ -194,8 +194,8 @@
                     <div class="category__card">
                         <div class="category__card-title">VIP счет</div>
                         <ul class="category__card-list">
-                            <li class="category__card-item">Активируется без
-                                пополнения счета
+                            <li class="category__card-item">Активируется при
+                                пополнения счета на 200$
                             </li>
                             <li class="category__card-item">$1000 на тесты ваших
                                 стратегий
@@ -241,7 +241,7 @@
                             <p>Получайте экспертную поддержку по техническим вопросам и
                                 обслуживанию счета в любое время в часы работы рынков. Наши
                                 эксперты работают 24/7, кажды является специалистом по платформе
-                                Corex Brokers и обладает глубокими знаниями о местном рынке.</p>
+                                Ocean Option и обладает глубокими знаниями о местном рынке.</p>
                         </li>
                     </ul>
                 </div>
